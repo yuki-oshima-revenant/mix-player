@@ -9,6 +9,7 @@ import {
 import { ImPlay2, ImPause, ImVolumeHigh } from 'react-icons/im';
 import { data } from '../lib/data'
 import { convertSecondsToTime, convertTimeToSeconds } from '../lib/utils/convertTime';
+import { TrackWithIndex } from '../lib/types/track';
 
 const Home: NextPage = () => {
     const audioElement = useRef<HTMLAudioElement | null>(null);
@@ -16,6 +17,8 @@ const Home: NextPage = () => {
     const audioSourceNode = useRef<MediaElementAudioSourceNode>();
     const gainNode = useRef<GainNode>();
     const analyserNode = useRef<AnalyserNode>();
+    const backgroudImageRef = useRef<HTMLImageElement | null>(null);
+    const backgroudNextImageRef = useRef<HTMLImageElement | null>(null);
     const oscilloscopeRef = useRef<HTMLCanvasElement | null>(null);
     const [playing, setPlaying] = useState(false);
     const [gain, setGain] = useState(100);
@@ -27,24 +30,33 @@ const Home: NextPage = () => {
     const [seekbarPointerVisible, setSeekbarPointerVisible] = useState(false);
 
     const trackWithSeconds = useMemo(() => {
-        return data[0].tracks.map((track) => {
+        return data[0].tracks.map((track, index) => {
             const second = convertTimeToSeconds(track.time);
             return {
                 ...track,
+                index,
                 second,
                 seekRatio: second / audioLength
             }
         })
     }, [audioLength]);
 
-    const currentTrack = useMemo(() => {
-        let currentTrack = trackWithSeconds[0];
+    const { currentTrack, nextTrack } = useMemo(() => {
+        let tracks: { currentTrack?: TrackWithIndex, nextTrack?: TrackWithIndex } = {
+            currentTrack: trackWithSeconds.length > 0 ? trackWithSeconds[0] : undefined,
+            nextTrack: trackWithSeconds.length > 1 ? trackWithSeconds[1] : undefined
+        };
         trackWithSeconds.forEach((track) => {
             if (track.second <= Math.ceil(audioLength * currentSeekRatio)) {
-                currentTrack = track;
+                tracks.currentTrack = track;
             }
-        })
-        return currentTrack;
+        });
+        if (tracks.currentTrack) {
+            if (tracks.currentTrack.index <= trackWithSeconds.length) {
+                tracks.nextTrack = trackWithSeconds[tracks.currentTrack.index + 1];
+            }
+        }
+        return tracks;
     }, [currentSeekRatio, trackWithSeconds, audioLength]);
 
     const togglePlay = useCallback(() => {
@@ -177,12 +189,38 @@ const Home: NextPage = () => {
         setSeekbarPointerPosition(currentSeekRatio * (seekbarRef.current?.getBoundingClientRect().width || 0));
     }, [currentSeekRatio]);
 
+    useEffect(() => {
+        if (!backgroudImageRef.current || !backgroudNextImageRef.current) return;
+        backgroudNextImageRef.current.src = currentTrack?.imageLink || '';
+        backgroudImageRef.current.setAttribute('style', 'animation: fadeout 1s 1');
+        backgroudNextImageRef.current.setAttribute('style', 'animation: fadein 1s 1');
+        const timeout = setTimeout(() => {
+            if (!backgroudImageRef.current || !backgroudNextImageRef.current) return;
+            backgroudImageRef.current.src = currentTrack?.imageLink || '';
+            backgroudNextImageRef.current.src = nextTrack?.imageLink || '';
+            backgroudImageRef.current.setAttribute('style', 'animation: none');
+            backgroudNextImageRef.current.setAttribute('style', 'animation: none');
+        }, 1000);
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [currentTrack]);
+
     return (
         <div className="w-full text-white min-h-screen">
             <audio src='/mix/1.mp3' ref={audioElement} />
-            <div className="z-[-3] bg-black absolute w-full h-full" />
+            <div className="z-[-4] bg-black absolute w-full h-full" />
             <div className="w-full overflow-hidden absolute z-[-2] h-[560px] ">
-                <img src={currentTrack.imageLink} className="overflow-hidden w-full brightness-75" />
+                <img
+                    className="w-full overflow-hidden brightness-75"
+                    ref={backgroudImageRef}
+                />
+            </div>
+            <div className="w-full overflow-hidden absolute z-[-3] h-[560px] ">
+                <img
+                    className="overflow-hidden w-full brightness-75"
+                    ref={backgroudNextImageRef}
+                />
             </div>
             <div className="h-[560px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-lg" />
             <div className="px-8 py-4">
@@ -256,20 +294,20 @@ const Home: NextPage = () => {
                             <div className="text-xl">Playing</div>
                             <div className="flex tracking-tight w-auto mt-2 min-w-0">
                                 <img
-                                    src={currentTrack.imageLink} className="w-36 shadow-lg cursor-pointer"
+                                    src={currentTrack?.imageLink} className="w-36 shadow-lg cursor-pointer"
                                     onClick={() => {
-                                        window.open(currentTrack.link, "_blank", "noreferrer");
+                                        window.open(currentTrack?.link, "_blank", "noreferrer");
                                     }} />
                                 <div className="h-auto mb-auto ml-4 min-w-0">
                                     <div className="font-bold text-5xl h-14 truncate cursor-pointer"
                                         onClick={() => {
-                                            window.open(currentTrack.link, "_blank", "noreferrer");
+                                            window.open(currentTrack?.link, "_blank", "noreferrer");
                                         }}
                                     >
-                                        {currentTrack.title}
+                                        {currentTrack?.title}
                                     </div>
                                     <div className="font-medium text-3xl mt-2 truncate">
-                                        {currentTrack.artist}
+                                        {currentTrack?.artist}
                                     </div>
                                 </div>
                             </div>
