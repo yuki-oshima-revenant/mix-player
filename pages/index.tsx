@@ -1,18 +1,13 @@
 import type { NextPage } from 'next';
-import { GetStaticProps } from 'next';
+import { useRouter } from "next/router";
+import { useEffect } from 'react';
 
-
-export const getStaticProps: GetStaticProps<{}> = async ({ params, preview }) => {
-    return {
-        props: {
-        },
-        redirect: {
-            destination: '/mix/1'
-        }
-    };
-}
 
 const Home: NextPage = () => {
+    const router = useRouter();
+    useEffect(() => {
+        router.push('/mix/1')
+    }, [])
     return <></>
 };
 
