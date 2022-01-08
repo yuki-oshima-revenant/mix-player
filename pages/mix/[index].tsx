@@ -109,17 +109,15 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
         audioContext.current = new window.AudioContext();
         if (audioElement.current && audioContext.current) {
             if (!audioSourceNode.current) {
-                audioSourceNode.current = audioContext.current.createMediaElementSource(audioElement.current);
-                gainNode.current = audioContext.current.createGain();
-                analyserNode.current = audioContext.current.createAnalyser();
-                audioSourceNode.current
-                    .connect(gainNode.current)
-                    .connect(analyserNode.current)
-                    .connect(audioContext.current.destination);
+                // audioSourceNode.current = audioContext.current.createMediaElementSource(audioElement.current);
+                // analyserNode.current = audioContext.current.createAnalyser();
+                // audioSourceNode.current
+                //     .connect(analyserNode.current)
+                //     .connect(audioContext.current.destination);
             }
             const seekInterval = setInterval(() => {
-                if (audioSourceNode.current) {
-                    ((audioSourceNode.current.mediaElement.currentTime / audioSourceNode.current.mediaElement.duration));
+                if (audioElement.current) {
+                    ((audioElement.current.currentTime / audioElement.current.duration));
                 }
                 if (oscilloscopeRef.current && analyserNode.current) {
                     const canvasCtx = oscilloscopeRef.current.getContext("2d");
@@ -186,8 +184,8 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const setSeekPosition = useCallback((seekRatio: number) => {
         if (!audioContext.current) {
             initializeAudioContext();
-
-        } if (audioElement.current) {
+        }
+        if (audioElement.current) {
             setCurrentSeekRatio(seekRatio);
             audioElement.current.currentTime = audioElement.current.duration * seekRatio;
         }
@@ -332,8 +330,8 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                     w={240}
                                     onChange={(value) => {
                                         setGain(value);
-                                        if (gainNode.current) {
-                                            gainNode.current.gain.value = (value / 100);
+                                        if (audioElement.current) {
+                                            audioElement.current.volume = (value / 100)
                                         }
                                     }}>
                                     <SliderTrack>
