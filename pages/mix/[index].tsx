@@ -106,6 +106,15 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [currentSeekRatio, data, audioLength]);
 
     const togglePlay = useCallback(() => {
+        if (audioElement.current) {
+            if (!playing) {
+                audioElement.current.play();
+                setPlaying(true);
+            } else {
+                audioElement.current.pause();
+                setPlaying(false);
+            }
+        }
         if (!audioContext.current) {
             audioContext.current = new window.AudioContext();
             if (audioElement.current && audioContext.current) {
@@ -120,7 +129,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 }
                 const seekInterval = setInterval(() => {
                     if (audioSourceNode.current) {
-                        setCurrentSeekRatio((audioSourceNode.current.mediaElement.currentTime / audioSourceNode.current.mediaElement.duration));
+                        ((audioSourceNode.current.mediaElement.currentTime / audioSourceNode.current.mediaElement.duration));
                     }
                     if (oscilloscopeRef.current && analyserNode.current) {
                         const canvasCtx = oscilloscopeRef.current.getContext("2d");
@@ -167,25 +176,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 // };
             }
         }
-        if (audioContext.current.state === 'suspended') {
-            audioContext.current.resume();
-        }
-        if (audioElement.current) {
-            if (!playing) {
-                audioElement.current.play();
-                setPlaying(true);
-            } else {
-                audioElement.current.pause();
-                setPlaying(false);
-            }
-        }
     }, [playing]);
-
-    useEffect(() => {
-        window.addEventListener('unload', () => {
-            audioContext.current?.close();
-        })
-    }, []);
 
     const setSeekPosition = useCallback((seekRatio: number) => {
         if (audioSourceNode.current) {
@@ -307,9 +298,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             <div className="flex justify-center">
                                 <button
                                     className="w-20 h-20 md:w-32 md:h-32 my-auto"
-                                    onClick={() => {
-                                        togglePlay();
-                                    }}
+                                    onClick={() => { togglePlay(); }}
                                 >
                                     {playing
                                         ? <ImPause className="w-full h-full" />
