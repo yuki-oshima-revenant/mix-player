@@ -58,7 +58,7 @@ export const data: Mix[] = [
             },
             {
                 artist: 'TSVI',
-                title: 'TSVI - Labyrinth (128bpm edit)',
+                title: 'Labyrinth (128bpm edit)',
                 release: 'OLD/UNRELEASED',
                 label: 'TSVI',
                 link: 'https://tsvi.bandcamp.com/album/old-unreleased',

@@ -11,7 +11,6 @@ import { convertSecondsToTime, convertTimeToSeconds } from '../../lib/utils/conv
 import { TrackWithIndex, MixWithIndex } from '../../lib/types/track';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
-
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = data.map((row, index) => ({
         params: {
@@ -75,7 +74,17 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const seekbarRef = useRef<HTMLDivElement>(null);
     const seekbarPointerHolded = useRef(false);
     const [seekbarPointerVisible, setSeekbarPointerVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const { currentTrack, nextTrack } = useMemo(() => {
         if (!data) return {};
@@ -131,12 +140,13 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [togglePlay]);
 
     useEffect(() => {
+        const margin = isMobile ? 12 : 24;
         const seekbarPointerMousemoveEvent = (e: MouseEvent) => {
             if (seekbarPointerHolded.current) {
                 const rect = seekbarRef.current?.getBoundingClientRect();
                 if (rect) {
-                    if (e.pageX >= (rect.x - 12) && (e.pageX <= (rect.width + rect.x - 12))) {
-                        setSeekbarPointerPosition(e.pageX - 24);
+                    if (e.pageX >= (rect.x - margin / 2) && (e.pageX <= (rect.width + rect.x - margin / 2))) {
+                        setSeekbarPointerPosition(e.pageX - margin);
                     }
                 }
             }
@@ -149,8 +159,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 if (rect) {
                     const position = rect.left + window.pageXOffset;
                     const offset = mouse - position;
-                    const width = rect?.right - rect?.left;
-                    setSeekPosition(offset / width);
+                    setSeekPosition(offset / rect.width);
                 }
             }
             seekbarPointerHolded.current = false;
@@ -248,7 +257,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [currentTrack]);
 
     return (
-        <div className="w-full text-white min-h-screen">
+        <div className="w-full text-white min-h-screen overflow-hidden">
             <audio src={process.env.NODE_ENV === 'development'
                 ? `/mix/${pageIndex}.mp3`
                 : `https://delivery.unronritaro.net/mix/${pageIndex}.mp3`}
@@ -256,26 +265,26 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 crossOrigin="anonymous"
             />
             <div className="z-[-4] bg-black absolute w-full h-full" />
-            <div className="w-full overflow-hidden absolute z-[-2] h-[560px] ">
+            <div className="w-full overflow-hidden absolute z-[-2] h-[480px] ">
                 <img
                     className="w-full overflow-hidden brightness-75"
                     ref={backgroudImageRef}
                 />
             </div>
-            <div className="w-full overflow-hidden absolute z-[-3] h-[560px] ">
+            <div className="w-full overflow-hidden absolute z-[-3] h-[480px]">
                 <img
                     className="overflow-hidden w-full brightness-75"
                     ref={backgroudNextImageRef}
                 />
             </div>
-            <div className="h-[560px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-lg" />
-            <div className="px-8 py-4">
+            <div className="h-[480px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-2xl" />
+            <div className="px-4 md:px-8 py-4">
                 <div className="w-auto">
-                    <div className="font-bold text-8xl tracking-tighter">
+                    <h1 className="font-bold text-4xl md:text-8xl tracking-tighter">
                         {data?.title}
-                    </div>
-                    <div>mixed by Revenant</div>
-                    <div className="flex mt-2">
+                    </h1>
+                    <div className="text-sm md:text-base">mixed by Revenant</div>
+                    <div className="flex mt-2 text-sm md:text-base">
                         <div>
                             Genre
                         </div>
@@ -288,12 +297,12 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         </div>
                     </div>
                 </div>
-                <div className="grid mt-10 grid-cols-3 gap-8 h-60">
-                    <div className=" col-span-1 flex justify-center">
+                <div className="grid mt-8 md:mt-10 grid-cols-3 gap-4 md:gap-8 h-64 md:h-48">
+                    <div className="col-span-3 md:col-span-1 flex justify-center">
                         <div className="h-auto my-auto">
                             <div className="flex justify-center">
                                 <button
-                                    className="w-32 h-32 my-auto"
+                                    className="w-20 h-20 md:w-32 md:h-32 my-auto"
                                     onClick={() => {
                                         togglePlay();
                                     }}
@@ -304,9 +313,9 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                     }
                                 </button>
                             </div>
-                            <div className="flex mt-4 justify-center">
+                            <div className="flex mt-2 md:mt-4 justify-center">
                                 <button
-                                    className="w-6 h-6 my-auto"
+                                    className="w-5 h-5 md:w-6 md:h-6 my-auto"
                                 >
                                     <ImVolumeHigh className="w-full h-full" />
                                 </button>
@@ -317,7 +326,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                     max={100}
                                     ml={4}
                                     my="auto"
-                                    h="4"
+                                    h={{ 'xs': 2, 'md': 4 }}
                                     colorScheme="gray"
                                     w={240}
                                     onChange={(value) => {
@@ -334,33 +343,46 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             </div>
                         </div>
                     </div>
-                    <div className="relative col-span-2">
-                        <div className="bg-gray-500/20 p-6 rounded-lg z-[2] h-full">
-                            <div className="text-xl">Playing</div>
-                            <div className="flex tracking-tight w-auto mt-2 min-w-0">
+                    <div className="relative col-span-3 md:col-span-2">
+                        <div className="bg-gray-500/20 p-3 md:p-6 rounded-lg z-[2] h-full">
+                            {/* <div className="text-xl">Playing</div> */}
+                            <div className="flex tracking-tight w-auto min-w-0">
                                 <img
-                                    src={currentTrack?.imageLink} className="w-36 shadow-lg cursor-pointer object-contain"
+                                    src={currentTrack?.imageLink} className="w-24 md:w-36 shadow-lg cursor-pointer object-contain"
                                     onClick={() => {
                                         window.open(currentTrack?.link, "_blank", "noreferrer");
                                     }} />
                                 <div className="h-auto mb-auto ml-4 min-w-0">
-                                    <div className="font-medium text-5xl h-14 truncate cursor-pointer tracking-tight"
+                                    <div className="font-medium text-2xl md:text-5xl h-8 md:h-14 truncate cursor-pointer tracking-tight"
                                         onClick={() => {
                                             window.open(currentTrack?.link, "_blank", "noreferrer");
                                         }}
                                     >
                                         {currentTrack?.title}
                                     </div>
-                                    <div className="text-3xl mt-2 truncate tracking-tight text-gray-300">
+                                    <div className="text-xl md:text-3xl mt-2 truncate tracking-tight text-gray-300">
                                         {currentTrack?.artist}
+                                    </div>
+                                    <div className="mt-2 md:mt-4 text-gray-300 tracking-tight truncate">
+                                        <span className="mr-2 text-ms leading-6 md:text-base md:leading-7">
+                                            from
+                                        </span>
+                                        <span
+                                            className="text-base md:text-lg cursor-pointer"
+                                            onClick={() => {
+                                                window.open(currentTrack?.link, "_blank", "noreferrer");
+                                            }}
+                                        >
+                                            {`${currentTrack?.label} - ${currentTrack?.release}`}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <canvas ref={oscilloscopeRef} className="absolute w-full top-0 z-[-1] h-60" />
+                        <canvas ref={oscilloscopeRef} className="absolute w-full top-0 z-[-1] h-[120px] md:h-48" />
                     </div>
                 </div>
-                <div className="text-xl mt-6 text-right">
+                <div className="text-base md:text-xl mt-4 md:mt-6 text-right">
                     <span>
                         {convertSecondsToTime(Math.floor(audioLength * currentSeekRatio))}
 
@@ -380,13 +402,13 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         setSeekbarPointerVisible(false);
                     }}>
                     <div
-                        className="absolute left-8 right-8 z-[-1] h-4 bg-gray-400/30 rounded-full"
+                        className="absolute left-4 right-4 md:left-8 md:right-8 z-[-1] h-4 bg-gray-400/30 rounded-full"
                     />
                     <div
                         className="w-6 h-6 absolute rounded-full z-[2] bg-white cursor-pointer"
                         style={{
                             top: seekbarRef.current ? seekbarRef.current.offsetTop - 3 : undefined,
-                            left: seekbarPointerPosition + 24,
+                            left: isMobile ? seekbarPointerPosition + 12 : seekbarPointerPosition + 24,
                             display: seekbarPointerVisible ? undefined : 'none'
                         }}
                         onDragStart={(e) => {
@@ -396,11 +418,11 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             seekbarPointerHolded.current = true;
                         }}
                     />
-                    <div className="absolute left-8 right-8">
+                    <div className="absolute left-4 right-4 md:left-8 md:right-8">
                         {data?.tracks.map((track, index) => {
                             if (index === 0) return;
                             return <div
-                                className="absolute h-4 w-[2px] bg-white z-[1] cursor-pointer"
+                                className="absolute h-4 w-[2px] bg-gray-200/50 z-[1] cursor-pointer"
                                 style={{ left: `calc(${track.seekRatio * 100}%)` }}
                                 key={`position_${index}`}
                                 onClick={() => {
@@ -425,25 +447,29 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         }}
                     />
                 </div>
-                <div className="mt-10">
-                    <div className="grid grid-cols-12 text-gray-400">
-                        <div className="col-span-1 text-center">#</div>
-                        <div className="col-span-5">Track</div>
-                        <div className="col-span-5">Release</div>
-                        <div className="col-span-1">Time</div>
+                <div className="mt-6 md:mt-10">
+                    <div className="grid grid-cols-12 gap-2 text-gray-400 px-2">
+                        <div className="hidden md:col-span-1 text-center">#</div>
+                        <div className="col-span-10 md:col-span-5">Track</div>
+                        <div className="hidden md:col-span-5">Release</div>
+                        <div className="col-span-2 md:col-span-1">Time</div>
                     </div>
-                    <div className="mt-2 overflow-auto" style={{ height: 'calc(100vh - 560px - 32px - 32px)' }}>
+                    <div className="mt-2 overflow-auto" style={{
+                        height: isMobile
+                            ? 'calc(100vh - 480px - 24px - 24px - 16px)'
+                            : 'calc(100vh - 480px - 32px - 40px - 24px)'
+                    }}>
                         <div className="grid flex-row">
                             {data?.tracks.map((track, id) => (
-                                <div className="grid grid-cols-12 hover:bg-gray-500/30 rounded-lg py-2" key={`track_${id}`}>
-                                    <div className="col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
+                                <div className="grid grid-cols-12 gap-2 hover:bg-gray-500/30 rounded-lg p-2" key={`track_${id}`}>
+                                    <div className="hidden md:col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
                                         onClick={() => {
                                             setSeekPosition(track.seekRatio)
                                         }}
                                     >
                                         {id + 1}
                                     </div>
-                                    <div className="col-span-5 flex">
+                                    <div className="col-span-10 md:col-span-5 flex">
                                         <img
                                             src={track.imageLink}
                                             className="w-12 h-12 my-auto object-contain shadow-lg cursor-pointer"
@@ -451,24 +477,24 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                                 window.open(track.link, "_blank", "noreferrer");
                                             }}
                                         />
-                                        <div className="ml-4 h-auto my-auto">
+                                        <div className="ml-4 h-auto my-auto truncate">
                                             <div
-                                                className="font-medium text-lg hover:underline cursor-pointer"
+                                                className="font-medium text-base md:text-lg hover:underline cursor-pointer"
                                                 onClick={() => {
                                                     window.open(track.link, "_blank", "noreferrer");
                                                 }}
                                             >
                                                 {track.title}
                                             </div>
-                                            <div className="text-md text-gray-300">
+                                            <div className="text-sm md:text-base text-gray-300">
                                                 {track.artist}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-span-5 flex">
+                                    <div className="hidden md:col-span-5 md:flex">
                                         <div className="h-auto my-auto">
                                             <div
-                                                className="font-medium text-md hover:underline cursor-pointer"
+                                                className="font-medium text-base hover:underline cursor-pointer"
                                                 onClick={() => {
                                                     window.open(track.link, "_blank", "noreferrer");
                                                 }}
@@ -480,7 +506,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-span-1 h-auto my-auto cursor-pointer hover:underline"
+                                    <div className="col-span-2 md:col-span-1 h-auto my-auto cursor-pointer hover:underline"
                                         onClick={() => {
                                             setSeekPosition(track.seekRatio);
                                         }}
