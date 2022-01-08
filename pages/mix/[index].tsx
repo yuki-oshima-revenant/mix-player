@@ -179,9 +179,9 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [playing]);
 
     const setSeekPosition = useCallback((seekRatio: number) => {
-        if (audioSourceNode.current) {
+        if (audioElement.current) {
             setCurrentSeekRatio(seekRatio);
-            audioSourceNode.current.mediaElement.currentTime = audioSourceNode.current.mediaElement.duration * seekRatio;
+            audioElement.current.currentTime = audioElement.current.duration * seekRatio;
         }
     }, [])
 
