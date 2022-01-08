@@ -292,7 +292,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         </div>
                     </div>
                 </div>
-                <div className="grid mt-8 lg:mt-10 grid-cols-3 gap-4 lg:gap-8 h-64 lg:h-48">
+                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8 h-64 lg:h-48">
                     <div className="col-span-3 lg:col-span-1 flex justify-center">
                         <div className="h-auto my-auto">
                             <div className="flex justify-center">
@@ -306,7 +306,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                     }
                                 </button>
                             </div>
-                            <div className="flex mt-2 lg:mt-4 justify-center">
+                            <div className="hidden lg:flex mt-2 lg:mt-4 justify-center">
                                 <button
                                     className="w-5 h-5 lg:w-6 lg:h-6 my-auto"
                                 >
@@ -378,7 +378,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 <div className="text-base lg:text-xl mt-4 lg:mt-6 text-right">
                     <span>
                         {convertSecondsToTime(Math.floor(audioLength * currentSeekRatio))}
-
                     </span>
                     <span className="mx-1">
                         /
