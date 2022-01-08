@@ -1,6 +1,24 @@
-export const data = [
+import { Mix } from './types/track';
+
+export const data: Mix[] = [
     {
         title: 'eleventh-floor 0.0.1',
+        time: '78:53',
+        genres: [
+            {
+                name: 'Techno',
+                color: '#4f46e5'
+            },
+            {
+                name: 'House',
+                color: '#d946ef'
+            },
+            {
+                name: 'Electronic',
+                color: '#059669'
+            }
+        ],
+
         tracks: [
             {
                 artist: 'Anunaku',

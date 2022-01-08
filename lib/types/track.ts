@@ -1,3 +1,17 @@
+type MixBase = {
+
+    title: string,
+    time: string,
+    genres: {
+        name: string,
+        color: string
+    }[],
+}
+
+export type Mix = MixBase & {
+    tracks: Track[]
+}
+
 export type Track = {
     artist: string,
     title: string,
@@ -14,3 +28,8 @@ export type TrackWithIndex = {
     second: number,
     seekRatio: number
 } & Track;
+
+
+export type MixWithIndex = MixBase & {
+    tracks: TrackWithIndex[]
+};
