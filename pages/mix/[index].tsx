@@ -292,7 +292,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         </div>
                     </div>
                 </div>
-                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8 h-64 lg:h-48">
+                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8 h-56 lg:h-48">
                     <div className="col-span-3 lg:col-span-1 flex justify-center">
                         <div className="h-auto my-auto">
                             <div className="flex justify-center">
@@ -448,7 +448,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                     </div>
                     <div className="mt-2 overflow-auto" style={{
                         height: isMobile
-                            ? 'calc(100vh - 480px - 24px - 24px - 16px)'
+                            ? 'calc(100vh - 480px - 16px)'
                             : 'calc(100vh - 480px - 32px - 40px - 24px)'
                     }}>
                         <div className="grid flex-row">
