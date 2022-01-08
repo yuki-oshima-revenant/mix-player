@@ -106,6 +106,68 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [currentSeekRatio, data, audioLength]);
 
     const togglePlay = useCallback(() => {
+        if (!audioContext.current) {
+            audioContext.current = new window.AudioContext();
+            if (audioElement.current && audioContext.current) {
+                const currentAudioElement = audioElement.current;
+                if (!audioSourceNode.current) {
+                    audioSourceNode.current = audioContext.current.createMediaElementSource(currentAudioElement);
+                    gainNode.current = audioContext.current.createGain();
+                    analyserNode.current = audioContext.current.createAnalyser();
+                    audioSourceNode.current
+                        .connect(gainNode.current)
+                        .connect(analyserNode.current)
+                        .connect(audioContext.current.destination);
+                }
+                const seekInterval = setInterval(() => {
+                    if (audioSourceNode.current) {
+                        setCurrentSeekRatio((audioSourceNode.current.mediaElement.currentTime / audioSourceNode.current.mediaElement.duration));
+                    }
+                    if (oscilloscopeRef.current && analyserNode.current) {
+                        const canvasCtx = oscilloscopeRef.current.getContext("2d");
+                        if (canvasCtx) {
+                            const WIDTH = oscilloscopeRef.current.width;
+                            const HEIGHT = oscilloscopeRef.current.height;
+                            analyserNode.current.fftSize = 2048;
+                            const bufferLength = analyserNode.current.fftSize;
+                            const dataArray = new Uint8Array(bufferLength);
+                            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+                            const draw = () => {
+                                if (oscilloscopeRef.current && analyserNode.current) {
+                                    analyserNode.current.getByteTimeDomainData(dataArray);
+                                    canvasCtx.fillStyle = 'transparent';
+                                    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+                                    canvasCtx.lineWidth = 1;
+                                    canvasCtx.strokeStyle = '#4b5563';
+                                    canvasCtx.beginPath();
+                                    var sliceWidth = WIDTH * 1.0 / bufferLength;
+                                    var x = 0;
+                                    for (var i = 0; i < bufferLength; i++) {
+                                        var v = dataArray[i] / 128.0;
+                                        var y = v * HEIGHT / 2;
+                                        if (i === 0) {
+                                            canvasCtx.moveTo(x, y);
+                                        } else {
+                                            canvasCtx.lineTo(x, y);
+                                        }
+                                        x += sliceWidth;
+                                    }
+                                    canvasCtx.lineTo(oscilloscopeRef.current.width, oscilloscopeRef.current.height / 2);
+                                    canvasCtx.stroke();
+                                }
+                            };
+                            draw();
+                        }
+                    }
+                }, 25);
+                const onEnd = () => { setPlaying(false); };
+                audioElement.current.addEventListener('ended', onEnd);
+                // return () => {
+                //     clearInterval(seekInterval);
+                //     currentAudioElement.removeEventListener('ended', onEnd);
+                // };
+            }
+        }
         if (audioContext.current?.state === 'suspended') {
             audioContext.current.resume();
         }
@@ -169,69 +231,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
             window.removeEventListener('mouseup', seekbarMouseupEvent);
             window.removeEventListener('mousemove', seekbarPointerMousemoveEvent);
         };
-    }, [])
-
-    useEffect(() => {
-        audioContext.current = new window.AudioContext();
-        if (audioElement.current && audioContext.current) {
-            const currentAudioElement = audioElement.current;
-            if (!audioSourceNode.current) {
-                audioSourceNode.current = audioContext.current.createMediaElementSource(currentAudioElement);
-                gainNode.current = audioContext.current.createGain();
-                analyserNode.current = audioContext.current.createAnalyser();
-                audioSourceNode.current
-                    .connect(gainNode.current)
-                    .connect(analyserNode.current)
-                    .connect(audioContext.current.destination);
-            }
-            const seekInterval = setInterval(() => {
-                if (audioSourceNode.current) {
-                    setCurrentSeekRatio((audioSourceNode.current.mediaElement.currentTime / audioSourceNode.current.mediaElement.duration));
-                }
-                if (oscilloscopeRef.current && analyserNode.current) {
-                    const canvasCtx = oscilloscopeRef.current.getContext("2d");
-                    if (canvasCtx) {
-                        const WIDTH = oscilloscopeRef.current.width;
-                        const HEIGHT = oscilloscopeRef.current.height;
-                        analyserNode.current.fftSize = 2048;
-                        const bufferLength = analyserNode.current.fftSize;
-                        const dataArray = new Uint8Array(bufferLength);
-                        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-                        const draw = () => {
-                            if (oscilloscopeRef.current && analyserNode.current) {
-                                analyserNode.current.getByteTimeDomainData(dataArray);
-                                canvasCtx.fillStyle = 'transparent';
-                                canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-                                canvasCtx.lineWidth = 1;
-                                canvasCtx.strokeStyle = '#4b5563';
-                                canvasCtx.beginPath();
-                                var sliceWidth = WIDTH * 1.0 / bufferLength;
-                                var x = 0;
-                                for (var i = 0; i < bufferLength; i++) {
-                                    var v = dataArray[i] / 128.0;
-                                    var y = v * HEIGHT / 2;
-                                    if (i === 0) {
-                                        canvasCtx.moveTo(x, y);
-                                    } else {
-                                        canvasCtx.lineTo(x, y);
-                                    }
-                                    x += sliceWidth;
-                                }
-                                canvasCtx.lineTo(oscilloscopeRef.current.width, oscilloscopeRef.current.height / 2);
-                                canvasCtx.stroke();
-                            }
-                        };
-                        draw();
-                    }
-                }
-            }, 25);
-            const onEnd = () => { setPlaying(false); };
-            audioElement.current.addEventListener('ended', onEnd);
-            return () => {
-                clearInterval(seekInterval);
-                currentAudioElement.removeEventListener('ended', onEnd);
-            };
-        }
     }, []);
 
     useEffect(() => {
