@@ -115,6 +115,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 setPlaying(false);
             }
         }
+        audioContext.current?.close();
         audioContext.current = new window.AudioContext();
         if (audioElement.current && audioContext.current) {
             if (!audioSourceNode.current) {
@@ -173,7 +174,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
             //     clearInterval(seekInterval);
             //     audioElement.current.removeEventListener('ended', onEnd);
             // };
-
         }
     }, [playing]);
 
