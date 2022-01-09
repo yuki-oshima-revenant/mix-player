@@ -63,6 +63,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const audioElement = useRef<HTMLAudioElement | null>(null);
     const audioContext = useRef<AudioContext>();
     const audioSourceNode = useRef<MediaElementAudioSourceNode>();
+    const gainNode = useRef<GainNode | null>(null);
     const analyserNode = useRef<AnalyserNode>();
     const backgroudImageRef = useRef<HTMLImageElement | null>(null);
     const backgroudNextImageRef = useRef<HTMLImageElement | null>(null);
@@ -78,7 +79,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 1024)
+            setIsMobile(window.innerWidth < 1024);
         }
         window.addEventListener("resize", handleResize);
         handleResize();
@@ -107,11 +108,14 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const initializeAudioContext = useCallback(() => {
         audioContext.current = new window.AudioContext();
         if (audioElement.current && audioContext.current) {
+            // iOSブラウザではcreateMediaElementSourceで作成した音声にノイズが乗る
             if (!audioSourceNode.current && !isMobile) {
                 audioSourceNode.current = audioContext.current.createMediaElementSource(audioElement.current);
+                gainNode.current = audioContext.current.createGain();
                 analyserNode.current = audioContext.current.createAnalyser();
                 audioSourceNode.current
                     .connect(analyserNode.current)
+                    .connect(gainNode.current)
                     .connect(audioContext.current.destination);
             }
             const seekInterval = setInterval(() => {
@@ -157,10 +161,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
             }, 25);
             const onEnd = () => { setPlaying(false); };
             audioElement.current.addEventListener('ended', onEnd);
-            // return () => {
-            //     clearInterval(seekInterval);
-            //     audioElement.current.removeEventListener('ended', onEnd);
-            // };
         }
     }, [isMobile])
 
@@ -354,8 +354,15 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                         w={240}
                                         onChange={(value) => {
                                             setGain(value);
-                                            if (audioElement.current) {
-                                                audioElement.current.volume = (value / 100)
+                                            if (isMobile) {
+                                                if (audioElement.current) {
+                                                    audioElement.current.volume = (value / 100)
+                                                }
+                                            } else {
+                                                // PC SafariではHTMLAudioElementの音量調整が動作しない
+                                                if (gainNode.current) {
+                                                    gainNode.current.gain.value = (value / 100);
+                                                }
                                             }
                                         }}>
                                         <SliderTrack>
@@ -368,7 +375,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         </div>
                         <div className="relative col-span-3 lg:col-span-2">
                             <div className="bg-gray-500/20 p-3 lg:p-6 rounded-lg z-[2] h-full">
-                                {/* <div className="text-xl">Playing</div> */}
                                 <div className="flex tracking-tight w-auto min-w-0">
                                     <img
                                         src={currentTrack?.imageLink} className="w-20 lg:w-36 shadow-lg cursor-pointer object-contain"
@@ -431,7 +437,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             {data?.tracks.map((track, index) => {
                                 if (index === 0) return;
                                 return <div
-                                    className="absolute h-4 w-[2px] bg-gray-200/50 z-30 cursor-pointer"
+                                    className="absolute h-4 w-[2px] z-30 bg-gray-200/50 cursor-pointer"
                                     style={{ left: `calc(${track.seekRatio * 100}%)` }}
                                     key={`position_${index}`}
                                     onClick={() => {
