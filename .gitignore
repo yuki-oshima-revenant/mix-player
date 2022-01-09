@@ -36,6 +36,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-*.mp3
-*.png
-*.jpg
+public/mix/*.mp3
