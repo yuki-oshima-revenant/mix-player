@@ -10,6 +10,7 @@ import { data } from '../../lib/data'
 import { convertSecondsToTime, convertTimeToSeconds } from '../../lib/utils/convertTime';
 import { TrackWithIndex, MixWithIndex, } from '../../lib/types/track';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Head from "next/head";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = data.map((row, index) => ({
@@ -259,287 +260,298 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     }, [currentTrack]);
 
     return (
-        <div className="w-full text-white min-h-screen overflow-hidden">
-            <audio src={process.env.NODE_ENV === 'development'
-                ? `/mix/${pageIndex}.mp3`
-                : `https://delivery.unronritaro.net/mix/${pageIndex}.mp3`}
-                ref={audioElement}
-                crossOrigin="anonymous"
-            />
-            <div className="z-[-4] bg-black absolute w-full h-full" />
-            <div className="w-full overflow-hidden absolute z-[-2] h-[480px] ">
-                <img
-                    className="w-full overflow-hidden brightness-75"
-                    ref={backgroudImageRef}
+        <div>
+            <Head>
+                <title>{`${data?.title} - mixed by Revenant`}</title>
+                <meta property="og:title" content={`${data?.title}`} />
+                <meta property="og:image" content={`/ogp/${pageIndex}.png`} />
+                <meta name="twitter:image" content={`/ogp/${pageIndex}.png`} />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Head>
+            <div className="w-full text-white min-h-screen overflow-hidden">
+                <audio src={process.env.NODE_ENV === 'development'
+                    ? `/mix/${pageIndex}.mp3`
+                    : `https://delivery.unronritaro.net/mix/${pageIndex}.mp3`}
+                    ref={audioElement}
+                    crossOrigin="anonymous"
                 />
-            </div>
-            <div className="w-full overflow-hidden absolute z-[-3] h-[480px]">
-                <img
-                    className="overflow-hidden w-full brightness-75"
-                    ref={backgroudNextImageRef}
-                />
-            </div>
-            <div className="h-[480px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-2xl" />
-            <div className="px-4 lg:px-8 py-3 lg:py-4">
-                <div className="w-auto">
-                    <h1 className="font-bold text-4xl lg:text-8xl tracking-tighter">
-                        {data?.title}
-                    </h1>
-                    <div className="text-base lg:text-lg flex">
-                        <div>
-                            mixed by Revenant
-                        </div>
-                        <ImTwitter
-                            className="h-auto my-auto ml-2 cursor-pointer"
-                            onClick={() => {
-                                window.open('https://twitter.com/Re_venant', '_blank')
-                            }}
-                        />
-                        <ImGithub
-                            className="h-auto my-auto ml-2 cursor-pointer"
-                            onClick={() => {
-                                window.open('https://github.com/yuki-oshima-revenant/mix-player', '_blank')
-                            }}
-                        />
-
-                    </div>
-                    <div className="flex mt-2 text-sm lg:text-base">
-                        <div className="flex gap-1 lg:gap-2">
-                            {data?.genres.map(({ name, color },) => (
-                                <div className={`px-2 font-medium`} key={name} style={{ backgroundColor: color }}>
-                                    {name}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                <div className="z-[-4] bg-black absolute w-full h-full" />
+                <div className="w-full overflow-hidden absolute z-[-2] h-[480px] ">
+                    <img
+                        className="w-full overflow-hidden brightness-75"
+                        ref={backgroudImageRef}
+                    />
                 </div>
-                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8">
-                    <div className="col-span-3 lg:col-span-1 flex justify-center">
-                        <div className="h-auto my-auto">
-                            <div className="flex justify-center">
-                                <button
-                                    className="w-20 h-20 lg:w-32 lg:h-32 my-auto"
-                                    onClick={() => { togglePlay(); }}
-                                >
-                                    {playing
-                                        ? <ImPause className="w-full h-full" />
-                                        : <ImPlay2 className="w-full h-full" />
-                                    }
-                                </button>
+                <div className="w-full overflow-hidden absolute z-[-3] h-[480px]">
+                    <img
+                        className="overflow-hidden w-full brightness-75"
+                        ref={backgroudNextImageRef}
+                    />
+                </div>
+                <div className="h-[480px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-2xl" />
+                <div className="px-4 lg:px-8 py-3 lg:py-4">
+                    <div className="w-auto">
+                        <h1 className="font-bold text-4xl lg:text-8xl tracking-tighter">
+                            {data?.title}
+                        </h1>
+                        <div className="text-base lg:text-lg flex">
+                            <div>
+                                mixed by Revenant
                             </div>
-                            <div className="hidden lg:flex mt-2 lg:mt-4 justify-center">
-                                <button
-                                    className="w-5 h-5 lg:w-6 lg:h-6 my-auto"
-                                >
-                                    <ImVolumeHigh className="w-full h-full" />
-                                </button>
-                                <Slider
-                                    title='gain'
-                                    value={gain}
-                                    min={0}
-                                    max={100}
-                                    ml={4}
-                                    my="auto"
-                                    h={{ 'xs': 2, 'md': 4 }}
-                                    colorScheme="gray"
-                                    w={240}
-                                    onChange={(value) => {
-                                        setGain(value);
-                                        if (audioElement.current) {
-                                            audioElement.current.volume = (value / 100)
-                                        }
-                                    }}>
-                                    <SliderTrack>
-                                        <SliderFilledTrack />
-                                    </SliderTrack>
-                                    <SliderThumb />
-                                </Slider>
+                            <ImTwitter
+                                className="h-auto my-auto ml-2 cursor-pointer"
+                                onClick={() => {
+                                    window.open('https://twitter.com/Re_venant', '_blank')
+                                }}
+                            />
+                            <ImGithub
+                                className="h-auto my-auto ml-2 cursor-pointer"
+                                onClick={() => {
+                                    window.open('https://github.com/yuki-oshima-revenant/mix-player', '_blank')
+                                }}
+                            />
+
+                        </div>
+                        <div className="flex mt-2 text-sm lg:text-base">
+                            <div className="flex gap-1 lg:gap-2">
+                                {data?.genres.map(({ name, color },) => (
+                                    <div className={`px-2 font-medium`} key={name} style={{ backgroundColor: color }}>
+                                        {name}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
-                    <div className="relative col-span-3 lg:col-span-2">
-                        <div className="bg-gray-500/20 p-3 lg:p-6 rounded-lg z-[2] h-full">
-                            {/* <div className="text-xl">Playing</div> */}
-                            <div className="flex tracking-tight w-auto min-w-0">
-                                <img
-                                    src={currentTrack?.imageLink} className="w-20 lg:w-36 shadow-lg cursor-pointer object-contain"
-                                    onClick={() => {
-                                        window.open(currentTrack?.link, "_blank", "noreferrer");
-                                    }} />
-                                <div className="h-auto mb-auto ml-4 min-w-0">
-                                    <div className="font-medium text-xl lg:text-5xl h-7 lg:h-14 truncate cursor-pointer tracking-tight"
+                    <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8">
+                        <div className="col-span-3 lg:col-span-1 flex justify-center">
+                            <div className="h-auto my-auto">
+                                <div className="flex justify-center">
+                                    <button
+                                        className="w-20 h-20 lg:w-32 lg:h-32 my-auto"
+                                        onClick={() => { togglePlay(); }}
+                                    >
+                                        {playing
+                                            ? <ImPause className="w-full h-full" />
+                                            : <ImPlay2 className="w-full h-full" />
+                                        }
+                                    </button>
+                                </div>
+                                <div className="hidden lg:flex mt-2 lg:mt-4 justify-center">
+                                    <button
+                                        className="w-5 h-5 lg:w-6 lg:h-6 my-auto"
+                                    >
+                                        <ImVolumeHigh className="w-full h-full" />
+                                    </button>
+                                    <Slider
+                                        title='gain'
+                                        value={gain}
+                                        min={0}
+                                        max={100}
+                                        ml={4}
+                                        my="auto"
+                                        h={{ 'xs': 2, 'md': 4 }}
+                                        colorScheme="gray"
+                                        w={240}
+                                        onChange={(value) => {
+                                            setGain(value);
+                                            if (audioElement.current) {
+                                                audioElement.current.volume = (value / 100)
+                                            }
+                                        }}>
+                                        <SliderTrack>
+                                            <SliderFilledTrack />
+                                        </SliderTrack>
+                                        <SliderThumb />
+                                    </Slider>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative col-span-3 lg:col-span-2">
+                            <div className="bg-gray-500/20 p-3 lg:p-6 rounded-lg z-[2] h-full">
+                                {/* <div className="text-xl">Playing</div> */}
+                                <div className="flex tracking-tight w-auto min-w-0">
+                                    <img
+                                        src={currentTrack?.imageLink} className="w-20 lg:w-36 shadow-lg cursor-pointer object-contain"
                                         onClick={() => {
                                             window.open(currentTrack?.link, "_blank", "noreferrer");
-                                        }}
-                                    >
-                                        {currentTrack?.title}
-                                    </div>
-                                    <div className="text-base lg:text-2xl truncate tracking-tight text-gray-300">
-                                        {currentTrack?.artist}
-                                    </div>
-                                    <div className="text-gray-300 tracking-tight truncate">
-                                        <span className="mr-1 lg:mr-2 text-sm leading-6 lg:text-base lg:leading-7">
-                                            from
-                                        </span>
-                                        <span
-                                            className="text-sm lg:text-lg cursor-pointer"
+                                        }} />
+                                    <div className="h-auto mb-auto ml-4 min-w-0">
+                                        <div className="font-medium text-xl lg:text-5xl h-7 lg:h-14 truncate cursor-pointer tracking-tight"
                                             onClick={() => {
                                                 window.open(currentTrack?.link, "_blank", "noreferrer");
                                             }}
                                         >
-                                            {`${currentTrack?.label} - ${currentTrack?.release}`}
-                                        </span>
+                                            {currentTrack?.title}
+                                        </div>
+                                        <div className="text-base lg:text-2xl truncate tracking-tight text-gray-300">
+                                            {currentTrack?.artist}
+                                        </div>
+                                        <div className="text-gray-300 tracking-tight truncate">
+                                            <span className="mr-1 lg:mr-2 text-sm leading-6 lg:text-base lg:leading-7">
+                                                from
+                                            </span>
+                                            <span
+                                                className="text-sm lg:text-lg cursor-pointer"
+                                                onClick={() => {
+                                                    window.open(currentTrack?.link, "_blank", "noreferrer");
+                                                }}
+                                            >
+                                                {`${currentTrack?.label} - ${currentTrack?.release}`}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <canvas ref={oscilloscopeRef} className="absolute w-full top-0 z-[-1] h-[120px] lg:h-48" />
                         </div>
-                        <canvas ref={oscilloscopeRef} className="absolute w-full top-0 z-[-1] h-[120px] lg:h-48" />
                     </div>
-                </div>
-                <div className="text-base lg:text-xl mt-4 lg:mt-6 text-right">
-                    <span>
-                        {convertSecondsToTime(Math.floor(audioLength * currentSeekRatio))}
-                    </span>
-                    <span className="mx-1">
-                        /
-                    </span>
-                    <span>
-                        {convertSecondsToTime(audioLength)}
-                    </span>
-                </div>
-                <div className="mt-2"
-                    onMouseEnter={() => {
-                        if (!isMobile) {
-                            setSeekbarPointerVisible(true);
-                        }
-                    }}
-                    onMouseLeave={() => {
-                        setSeekbarPointerVisible(false);
-                    }}>
+                    <div className="text-base lg:text-xl mt-4 lg:mt-6 text-right">
+                        <span>
+                            {convertSecondsToTime(Math.floor(audioLength * currentSeekRatio))}
+                        </span>
+                        <span className="mx-1">
+                            /
+                        </span>
+                        <span>
+                            {convertSecondsToTime(audioLength)}
+                        </span>
+                    </div>
+                    <div className="mt-2"
+                        onMouseEnter={() => {
+                            if (!isMobile) {
+                                setSeekbarPointerVisible(true);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            setSeekbarPointerVisible(false);
+                        }}>
 
 
-                    <div className="absolute left-4 right-4 lg:left-8 lg:right-8">
-                        {data?.tracks.map((track, index) => {
-                            if (index === 0) return;
-                            return <div
-                                className="absolute h-4 w-[2px] bg-gray-200/50 z-30 cursor-pointer"
-                                style={{ left: `calc(${track.seekRatio * 100}%)` }}
-                                key={`position_${index}`}
-                                onClick={() => {
-                                    setSeekPosition(track.seekRatio);
+                        <div className="absolute left-4 right-4 lg:left-8 lg:right-8">
+                            {data?.tracks.map((track, index) => {
+                                if (index === 0) return;
+                                return <div
+                                    className="absolute h-4 w-[2px] bg-gray-200/50 z-30 cursor-pointer"
+                                    style={{ left: `calc(${track.seekRatio * 100}%)` }}
+                                    key={`position_${index}`}
+                                    onClick={() => {
+                                        setSeekPosition(track.seekRatio);
+                                    }}
+                                />
+                            })}
+                        </div>
+                        <div
+                            className="absolute left-4 right-4 lg:left-8 lg:right-8 h-4 bg-gray-400/30 rounded-full cursor-pointer z-10"
+                        >
+                            <div
+                                className="w-6 h-6 absolute rounded-full z-40 bg-white cursor-pointer"
+                                style={{
+                                    top: seekbarRef.current ? seekbarRef.current.offsetTop - 3 : undefined,
+                                    left: seekbarPointerPosition - 20,
+                                    display: seekbarPointerVisible ? undefined : 'none'
+                                }}
+                                onDragStart={(e) => {
+                                    e.preventDefault();
+                                }}
+                                onMouseDown={() => {
+                                    if (!isMobile) {
+                                        seekbarPointerHolded.current = true;
+                                    }
                                 }}
                             />
-                        })}
-                    </div>
-                    <div
-                        className="absolute left-4 right-4 lg:left-8 lg:right-8 h-4 bg-gray-400/30 rounded-full cursor-pointer z-10"
-                    >
-                        <div
-                            className="w-6 h-6 absolute rounded-full z-40 bg-white cursor-pointer"
-                            style={{
-                                top: seekbarRef.current ? seekbarRef.current.offsetTop - 3 : undefined,
-                                left: seekbarPointerPosition - 20,
-                                display: seekbarPointerVisible ? undefined : 'none'
-                            }}
-                            onDragStart={(e) => {
-                                e.preventDefault();
-                            }}
-                            onMouseDown={() => {
-                                if (!isMobile) {
-                                    seekbarPointerHolded.current = true;
-                                }
-                            }}
-                        />
-                        <div
-                            ref={seekbarRef}
-                            className="flex-grow h-4 bg-gradient-to-r from-indigo-500 to-purple-500 my-auto rounded-full cursor-pointer bg-no-repeat z-20"
-                            style={{ backgroundSize: `${currentSeekRatio * 100}% 100%` }}
-                            onMouseUp={(e) => {
-                                const mouse = e.pageX;
-                                const rect = seekbarRef.current?.getBoundingClientRect();
-                                if (rect) {
-                                    const position = rect.left + window.pageXOffset;
-                                    const offset = mouse - position;
-                                    const width = rect?.right - rect?.left;
-                                    setSeekPosition(offset / width);
-                                }
-                            }}
-                        />
-                    </div>
-                </div>
-                <div className="mt-12">
-                    <div className="mt-2 overflow-auto" style={{
-                        height: isMobile
-                            ? 'calc(100vh - 480px + 40px)'
-                            : 'calc(100vh - 480px - 48px)'
-                    }}>
-                        <div className="grid grid-cols-12 gap-2 text-gray-400 p-2">
-                            <div className="hidden lg:block lg:col-span-1 text-center">#</div>
-                            <div className="col-span-10 lg:col-span-5 text-sm lg:text-base">Track</div>
-                            <div className="hidden lg:block lg:col-span-5">Release</div>
-                            <div className="col-span-2 lg:col-span-1 text-sm lg:text-base">Time</div>
+                            <div
+                                ref={seekbarRef}
+                                className="flex-grow h-4 bg-gradient-to-r from-indigo-500 to-purple-500 my-auto rounded-full cursor-pointer bg-no-repeat z-20"
+                                style={{ backgroundSize: `${currentSeekRatio * 100}% 100%` }}
+                                onMouseUp={(e) => {
+                                    const mouse = e.pageX;
+                                    const rect = seekbarRef.current?.getBoundingClientRect();
+                                    if (rect) {
+                                        const position = rect.left + window.pageXOffset;
+                                        const offset = mouse - position;
+                                        const width = rect?.right - rect?.left;
+                                        setSeekPosition(offset / width);
+                                    }
+                                }}
+                            />
                         </div>
-                        <div className="grid flex-row">
-                            {data?.tracks.map((track, id) => (
-                                <div className="grid grid-cols-12 gap-2 hover:bg-gray-500/30 rounded-lg p-2" key={`track_${id}`}>
-                                    <div className="hidden lg:block lg:col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
-                                        onClick={() => {
-                                            setSeekPosition(track.seekRatio)
-                                        }}
-                                    >
-                                        {id + 1}
-                                    </div>
-                                    <div className="col-span-10 lg:col-span-5 flex">
-                                        <img
-                                            src={track.imageLink}
-                                            className="w-10 h-10 lg:w-12 lg:h-12 my-auto object-contain shadow-lg cursor-pointer"
+                    </div>
+                    <div className="mt-12">
+                        <div className="mt-2 overflow-auto" style={{
+                            height: isMobile
+                                ? 'calc(100vh - 480px + 40px)'
+                                : 'calc(100vh - 480px - 48px)'
+                        }}>
+                            <div className="grid grid-cols-12 gap-2 text-gray-400 p-2">
+                                <div className="hidden lg:block lg:col-span-1 text-center">#</div>
+                                <div className="col-span-10 lg:col-span-5 text-sm lg:text-base">Track</div>
+                                <div className="hidden lg:block lg:col-span-5">Release</div>
+                                <div className="col-span-2 lg:col-span-1 text-sm lg:text-base">Time</div>
+                            </div>
+                            <div className="grid flex-row">
+                                {data?.tracks.map((track, id) => (
+                                    <div className="grid grid-cols-12 gap-2 hover:bg-gray-500/30 rounded-lg p-2" key={`track_${id}`}>
+                                        <div className="hidden lg:block lg:col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
                                             onClick={() => {
-                                                window.open(track.link, "_blank", "noreferrer");
+                                                setSeekPosition(track.seekRatio)
                                             }}
-                                        />
-                                        <div className="ml-4 h-auto my-auto truncate">
-                                            <div
-                                                className="font-medium text-base lg:text-lg hover:underline cursor-pointer"
+                                        >
+                                            {id + 1}
+                                        </div>
+                                        <div className="col-span-10 lg:col-span-5 flex">
+                                            <img
+                                                src={track.imageLink}
+                                                className="w-10 h-10 lg:w-12 lg:h-12 my-auto object-contain shadow-lg cursor-pointer"
                                                 onClick={() => {
                                                     window.open(track.link, "_blank", "noreferrer");
                                                 }}
-                                            >
-                                                {track.title}
-                                            </div>
-                                            <div className="text-sm lg:text-base text-gray-300">
-                                                {track.artist}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="hidden lg:block lg:col-span-5">
-                                        <div className="h-auto my-auto">
-                                            <div
-                                                className="font-medium text-base hover:underline cursor-pointer"
-                                                onClick={() => {
-                                                    window.open(track.link, "_blank", "noreferrer");
-                                                }}
-                                            >
-                                                {track.release}
-                                            </div>
-                                            <div className="text-sm text-gray-300">
-                                                {track.label}
+                                            />
+                                            <div className="ml-4 h-auto my-auto truncate">
+                                                <div
+                                                    className="font-medium text-base lg:text-lg hover:underline cursor-pointer"
+                                                    onClick={() => {
+                                                        window.open(track.link, "_blank", "noreferrer");
+                                                    }}
+                                                >
+                                                    {track.title}
+                                                </div>
+                                                <div className="text-sm lg:text-base text-gray-300">
+                                                    {track.artist}
+                                                </div>
                                             </div>
                                         </div>
+                                        <div className="hidden lg:block lg:col-span-5">
+                                            <div className="h-auto my-auto">
+                                                <div
+                                                    className="font-medium text-base hover:underline cursor-pointer"
+                                                    onClick={() => {
+                                                        window.open(track.link, "_blank", "noreferrer");
+                                                    }}
+                                                >
+                                                    {track.release}
+                                                </div>
+                                                <div className="text-sm text-gray-300">
+                                                    {track.label}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-span-2 lg:col-span-1 h-auto my-auto cursor-pointer hover:underline"
+                                            onClick={() => {
+                                                setSeekPosition(track.seekRatio);
+                                            }}
+                                        >
+                                            {track.time}
+                                        </div>
                                     </div>
-                                    <div className="col-span-2 lg:col-span-1 h-auto my-auto cursor-pointer hover:underline"
-                                        onClick={() => {
-                                            setSeekPosition(track.seekRatio);
-                                        }}
-                                    >
-                                        {track.time}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div >
+            </div >
+
+        </div>
+
     );
 };
 

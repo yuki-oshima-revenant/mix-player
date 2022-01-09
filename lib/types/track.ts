@@ -1,5 +1,4 @@
 type MixBase = {
-
     title: string,
     time: string,
     genres: {
