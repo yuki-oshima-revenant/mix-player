@@ -181,6 +181,10 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const setSeekPosition = useCallback((seekRatio: number) => {
         if (!audioContext.current) {
             initializeAudioContext();
+            if (audioElement.current) {
+                audioElement.current.play();
+                audioElement.current.pause();
+            }
         }
         if (audioElement.current) {
             setCurrentSeekRatio(seekRatio);
@@ -292,7 +296,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         </div>
                     </div>
                 </div>
-                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8 h-56 lg:h-48">
+                <div className="grid mt-6 lg:mt-10 grid-cols-3 gap-4 lg:gap-8">
                     <div className="col-span-3 lg:col-span-1 flex justify-center">
                         <div className="h-auto my-auto">
                             <div className="flex justify-center">
@@ -341,12 +345,12 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             {/* <div className="text-xl">Playing</div> */}
                             <div className="flex tracking-tight w-auto min-w-0">
                                 <img
-                                    src={currentTrack?.imageLink} className="w-24 lg:w-36 shadow-lg cursor-pointer object-contain"
+                                    src={currentTrack?.imageLink} className="w-20 lg:w-36 shadow-lg cursor-pointer object-contain"
                                     onClick={() => {
                                         window.open(currentTrack?.link, "_blank", "noreferrer");
                                     }} />
                                 <div className="h-auto mb-auto ml-4 min-w-0">
-                                    <div className="font-medium text-2xl lg:text-5xl h-8 lg:h-14 truncate cursor-pointer tracking-tight"
+                                    <div className="font-medium text-xl lg:text-5xl h-7 lg:h-14 truncate cursor-pointer tracking-tight"
                                         onClick={() => {
                                             window.open(currentTrack?.link, "_blank", "noreferrer");
                                         }}
@@ -388,7 +392,9 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 </div>
                 <div className="mt-2"
                     onMouseEnter={() => {
-                        setSeekbarPointerVisible(true);
+                        if (!isMobile) {
+                            setSeekbarPointerVisible(true);
+                        }
                     }}
                     onMouseLeave={() => {
                         setSeekbarPointerVisible(false);
@@ -407,7 +413,9 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                             e.preventDefault();
                         }}
                         onMouseDown={() => {
-                            seekbarPointerHolded.current = true;
+                            if (!isMobile) {
+                                seekbarPointerHolded.current = true;
+                            }
                         }}
                     />
                     <div className="absolute left-4 right-4 lg:left-8 lg:right-8">
@@ -448,7 +456,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                     </div>
                     <div className="mt-2 overflow-auto" style={{
                         height: isMobile
-                            ? 'calc(100vh - 480px - 16px)'
+                            ? 'calc(100vh - 480px + 16px)'
                             : 'calc(100vh - 480px - 32px - 40px - 24px)'
                     }}>
                         <div className="grid flex-row">
@@ -464,7 +472,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                     <div className="col-span-10 lg:col-span-5 flex">
                                         <img
                                             src={track.imageLink}
-                                            className="w-12 h-12 my-auto object-contain shadow-lg cursor-pointer"
+                                            className="w-10 h-10 lg:w-12 lg:h-12 my-auto object-contain shadow-lg cursor-pointer"
                                             onClick={() => {
                                                 window.open(track.link, "_blank", "noreferrer");
                                             }}
