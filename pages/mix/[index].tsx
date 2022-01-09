@@ -5,10 +5,10 @@ import {
     SliderFilledTrack,
     SliderThumb,
 } from '@chakra-ui/react'
-import { ImPlay2, ImPause, ImVolumeHigh } from 'react-icons/im';
+import { ImPlay2, ImPause, ImVolumeHigh, ImTwitter, ImGithub } from 'react-icons/im';
 import { data } from '../../lib/data'
 import { convertSecondsToTime, convertTimeToSeconds } from '../../lib/utils/convertTime';
-import { TrackWithIndex, MixWithIndex } from '../../lib/types/track';
+import { TrackWithIndex, MixWithIndex, } from '../../lib/types/track';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -280,12 +280,29 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 />
             </div>
             <div className="h-[480px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-2xl" />
-            <div className="px-4 lg:px-8 py-4">
+            <div className="px-4 lg:px-8 py-3 lg:py-4">
                 <div className="w-auto">
                     <h1 className="font-bold text-4xl lg:text-8xl tracking-tighter">
                         {data?.title}
                     </h1>
-                    <div className="text-sm lg:text-base">mixed by Revenant</div>
+                    <div className="text-base lg:text-lg flex">
+                        <div>
+                            mixed by Revenant
+                        </div>
+                        <ImTwitter
+                            className="h-auto my-auto ml-2 cursor-pointer"
+                            onClick={() => {
+                                window.open('https://twitter.com/Re_venant', '_blank')
+                            }}
+                        />
+                        <ImGithub
+                            className="h-auto my-auto ml-2 cursor-pointer"
+                            onClick={() => {
+                                window.open('https://github.com/yuki-oshima-revenant/mix-player', '_blank')
+                            }}
+                        />
+
+                    </div>
                     <div className="flex mt-2 text-sm lg:text-base">
                         <div className="flex gap-1 lg:gap-2">
                             {data?.genres.map(({ name, color },) => (
@@ -399,40 +416,13 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                     onMouseLeave={() => {
                         setSeekbarPointerVisible(false);
                     }}>
-                    <div
-                        className="absolute left-4 right-4 lg:left-8 lg:right-8 h-4 bg-gray-400/30 rounded-full cursor-pointer"
-                        onMouseUp={(e) => {
-                            const mouse = e.pageX;
-                            const rect = seekbarRef.current?.getBoundingClientRect();
-                            if (rect) {
-                                const position = rect.left + window.pageXOffset;
-                                const offset = mouse - position;
-                                const width = rect?.right - rect?.left;
-                                setSeekPosition(offset / width);
-                            }
-                        }}
-                    />
-                    <div
-                        className="w-6 h-6 absolute rounded-full z-[2] bg-white cursor-pointer"
-                        style={{
-                            top: seekbarRef.current ? seekbarRef.current.offsetTop - 3 : undefined,
-                            left: isMobile ? seekbarPointerPosition + 12 : seekbarPointerPosition + 24,
-                            display: seekbarPointerVisible ? undefined : 'none'
-                        }}
-                        onDragStart={(e) => {
-                            e.preventDefault();
-                        }}
-                        onMouseDown={() => {
-                            if (!isMobile) {
-                                seekbarPointerHolded.current = true;
-                            }
-                        }}
-                    />
+
+
                     <div className="absolute left-4 right-4 lg:left-8 lg:right-8">
                         {data?.tracks.map((track, index) => {
                             if (index === 0) return;
                             return <div
-                                className="absolute h-4 w-[2px] bg-gray-200/50 z-[1] cursor-pointer"
+                                className="absolute h-4 w-[2px] bg-gray-200/50 z-30 cursor-pointer"
                                 style={{ left: `calc(${track.seekRatio * 100}%)` }}
                                 key={`position_${index}`}
                                 onClick={() => {
@@ -442,27 +432,57 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         })}
                     </div>
                     <div
-                        ref={seekbarRef}
-                        className="flex-grow h-4 bg-gradient-to-r from-indigo-500 to-purple-500 my-auto rounded-full cursor-pointer bg-no-repeat"
-                        style={{ backgroundSize: `${currentSeekRatio * 100}% 100%` }}
-                    />
-                </div>
-                <div className="mt-6 lg:mt-10">
-                    <div className="grid grid-cols-12 gap-2 text-gray-400 px-2">
-                        <div className="hidden lg:col-span-1 text-center">#</div>
-                        <div className="col-span-10 lg:col-span-5">Track</div>
-                        <div className="hidden lg:col-span-5">Release</div>
-                        <div className="col-span-2 lg:col-span-1">Time</div>
+                        className="absolute left-4 right-4 lg:left-8 lg:right-8 h-4 bg-gray-400/30 rounded-full cursor-pointer z-10"
+                    >
+                        <div
+                            className="w-6 h-6 absolute rounded-full z-40 bg-white cursor-pointer"
+                            style={{
+                                top: seekbarRef.current ? seekbarRef.current.offsetTop - 3 : undefined,
+                                left: seekbarPointerPosition - 20,
+                                display: seekbarPointerVisible ? undefined : 'none'
+                            }}
+                            onDragStart={(e) => {
+                                e.preventDefault();
+                            }}
+                            onMouseDown={() => {
+                                if (!isMobile) {
+                                    seekbarPointerHolded.current = true;
+                                }
+                            }}
+                        />
+                        <div
+                            ref={seekbarRef}
+                            className="flex-grow h-4 bg-gradient-to-r from-indigo-500 to-purple-500 my-auto rounded-full cursor-pointer bg-no-repeat z-20"
+                            style={{ backgroundSize: `${currentSeekRatio * 100}% 100%` }}
+                            onMouseUp={(e) => {
+                                const mouse = e.pageX;
+                                const rect = seekbarRef.current?.getBoundingClientRect();
+                                if (rect) {
+                                    const position = rect.left + window.pageXOffset;
+                                    const offset = mouse - position;
+                                    const width = rect?.right - rect?.left;
+                                    setSeekPosition(offset / width);
+                                }
+                            }}
+                        />
                     </div>
+                </div>
+                <div className="mt-12">
                     <div className="mt-2 overflow-auto" style={{
                         height: isMobile
-                            ? 'calc(100vh - 480px + 16px)'
-                            : 'calc(100vh - 480px - 32px - 40px - 24px)'
+                            ? 'calc(100vh - 480px + 40px)'
+                            : 'calc(100vh - 480px - 48px)'
                     }}>
+                        <div className="grid grid-cols-12 gap-2 text-gray-400 p-2">
+                            <div className="hidden lg:block lg:col-span-1 text-center">#</div>
+                            <div className="col-span-10 lg:col-span-5 text-sm lg:text-base">Track</div>
+                            <div className="hidden lg:block lg:col-span-5">Release</div>
+                            <div className="col-span-2 lg:col-span-1 text-sm lg:text-base">Time</div>
+                        </div>
                         <div className="grid flex-row">
                             {data?.tracks.map((track, id) => (
                                 <div className="grid grid-cols-12 gap-2 hover:bg-gray-500/30 rounded-lg p-2" key={`track_${id}`}>
-                                    <div className="hidden lg:col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
+                                    <div className="hidden lg:block lg:col-span-1 text-center h-auto my-auto cursor-pointer hover:underline"
                                         onClick={() => {
                                             setSeekPosition(track.seekRatio)
                                         }}
@@ -491,7 +511,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="hidden lg:col-span-5 lg:flex">
+                                    <div className="hidden lg:block lg:col-span-5">
                                         <div className="h-auto my-auto">
                                             <div
                                                 className="font-medium text-base hover:underline cursor-pointer"
