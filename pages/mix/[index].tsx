@@ -400,7 +400,17 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         setSeekbarPointerVisible(false);
                     }}>
                     <div
-                        className="absolute left-4 right-4 lg:left-8 lg:right-8 z-[-1] h-4 bg-gray-400/30 rounded-full"
+                        className="absolute left-4 right-4 lg:left-8 lg:right-8 h-4 bg-gray-400/30 rounded-full cursor-pointer"
+                        onMouseUp={(e) => {
+                            const mouse = e.pageX;
+                            const rect = seekbarRef.current?.getBoundingClientRect();
+                            if (rect) {
+                                const position = rect.left + window.pageXOffset;
+                                const offset = mouse - position;
+                                const width = rect?.right - rect?.left;
+                                setSeekPosition(offset / width);
+                            }
+                        }}
                     />
                     <div
                         className="w-6 h-6 absolute rounded-full z-[2] bg-white cursor-pointer"
@@ -435,16 +445,6 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                         ref={seekbarRef}
                         className="flex-grow h-4 bg-gradient-to-r from-indigo-500 to-purple-500 my-auto rounded-full cursor-pointer bg-no-repeat"
                         style={{ backgroundSize: `${currentSeekRatio * 100}% 100%` }}
-                        onMouseUp={(e) => {
-                            const mouse = e.pageX;
-                            const rect = seekbarRef.current?.getBoundingClientRect();
-                            if (rect) {
-                                const position = rect.left + window.pageXOffset;
-                                const offset = mouse - position;
-                                const width = rect?.right - rect?.left;
-                                setSeekPosition(offset / width);
-                            }
-                        }}
                     />
                 </div>
                 <div className="mt-6 lg:mt-10">
