@@ -263,9 +263,9 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
         <div>
             <Head>
                 <title>{`${data?.title} - mixed by Revenant`}</title>
-                <meta property="og:title" content={`${data?.title}`} />
-                <meta property="og:image" content={`/ogp/${pageIndex}.png`} />
-                <meta name="twitter:image" content={`/ogp/${pageIndex}.png`} />
+                <meta property="og:title" content={`${data?.title} - mixed by Revenant`} />
+                <meta property="og:image" content={`https://mixplayer.unronritaro.net/ogp/${pageIndex}.png`} />
+                <meta name="twitter:image" content={`https://mixplayer.unronritaro.net/ogp/${pageIndex}.png`} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <div className="w-full text-white min-h-screen overflow-hidden">
@@ -555,9 +555,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                     </div>
                 </div>
             </div >
-
         </div>
-
     );
 };
 

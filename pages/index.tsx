@@ -12,6 +12,8 @@ const Home: NextPage = () => {
         <div>
             <Head>
                 <title>{`mixplayer.unronritaro.net`}</title>
+                <meta property="og:title" content={`mixplayer.unronritaro.net`} />
+                <meta name="twitter:card" content="summary" />
             </Head>
         </div>
     );
