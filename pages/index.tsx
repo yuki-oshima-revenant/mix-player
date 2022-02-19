@@ -6,7 +6,7 @@ import Head from "next/head";
 const Home: NextPage = () => {
     const router = useRouter();
     useEffect(() => {
-        router.push('/mix/1')
+        router.push('/mix/2')
     }, [])
     return (
         <div>

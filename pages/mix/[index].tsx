@@ -514,29 +514,29 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                                             />
                                             <div className="ml-4 h-auto my-auto truncate">
                                                 <div
-                                                    className="font-medium text-base lg:text-lg hover:underline cursor-pointer"
+                                                    className="font-medium text-base lg:text-lg hover:underline cursor-pointer truncate"
                                                     onClick={() => {
                                                         window.open(track.link, "_blank", "noreferrer");
                                                     }}
                                                 >
                                                     {track.title}
                                                 </div>
-                                                <div className="text-sm lg:text-base text-gray-300">
+                                                <div className="text-sm lg:text-base text-gray-300 truncate">
                                                     {track.artist}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="hidden lg:block lg:col-span-5">
-                                            <div className="h-auto my-auto">
+                                            <div className="h-auto my-auto truncate">
                                                 <div
-                                                    className="font-medium text-base hover:underline cursor-pointer"
+                                                    className="font-medium text-base hover:underline cursor-pointer truncate"
                                                     onClick={() => {
                                                         window.open(track.link, "_blank", "noreferrer");
                                                     }}
                                                 >
                                                     {track.release}
                                                 </div>
-                                                <div className="text-sm text-gray-300">
+                                                <div className="text-sm text-gray-300 truncate">
                                                     {track.label}
                                                 </div>
                                             </div>

@@ -202,5 +202,142 @@ export const data: Mix[] = [
                 imageLink: 'https://f4.bcbits.com/img/a2945277908_10.jpg'
             },
         ]
+    },
+    {
+        title: '2022.02.18 at MSL',
+        time: '44:54',
+        genres: [
+            {
+                name: 'Techno',
+                color: '#4f46e5'
+            },
+            {
+                name: 'House',
+                color: '#d946ef'
+            },
+            {
+                name: 'Electronic',
+                color: '#059669'
+            }
+        ],
+        tracks: [
+            {
+                artist: 'Batu',
+                title: 'Statin (Dub)',
+                release: 'False Reeds',
+                label: 'TIMEDANCE',
+                link: 'https://batutimedance.bandcamp.com/album/false-reeds',
+                time: '00:00',
+                imageLink: 'https://f4.bcbits.com/img/a1221351077_10.jpg',
+            },
+            {
+                artist: 'Forest Drive West',
+                title: 'Scorpion featuring Lucky Pereira',
+                release: 'Dualism E.P.',
+                label: 'Livity Sound',
+                link: 'https://forestdrivewest.bandcamp.com/album/dualism-e-p',
+                time: '04:40',
+                imageLink: 'https://f4.bcbits.com/img/a0346930310_10.jpg',
+            },
+            {
+                artist: 'Otik',
+                title: 'Thousand Year Stare',
+                release: 'Thousand Year Stare',
+                label: 'Gobstopper Records',
+                link: 'https://otik.bandcamp.com/album/thousand-year-stare',
+                time: '09:36',
+                imageLink: 'https://f4.bcbits.com/img/a1241842843_10.jpg',
+            },
+            {
+                artist: 'Facta',
+                title: 'On Deck',
+                release: 'Blush',
+                label: 'Wisdom Teeth',
+                link: 'https://facta.bandcamp.com/album/blush',
+                time: '14:47',
+                imageLink: 'https://f4.bcbits.com/img/a1132617684_10.jpg',
+            },
+            {
+                artist: 'J-E-T-S',
+                title: 'HYPER HIBERNATE',
+                release: 'ZOOSPA',
+                label: 'Innovative Leisure',
+                link: 'https://j-e-t-s.bandcamp.com/album/zoospa',
+                time: '17:05',
+                imageLink: 'https://f4.bcbits.com/img/a2464979571_10.jpg',
+            },
+            {
+                artist: 'Moglebaum',
+                title: 'Vision',
+                release: 'Vision',
+                label: 'Moglebaum',
+                link: 'https://moglebaum.bandcamp.com/track/vision',
+                time: '19:12',
+                imageLink: 'https://f4.bcbits.com/img/a3753995695_10.jpg',
+            },
+            {
+                artist: 'Obey City',
+                title: 'Waterbed (feat. Anthony Flammia)',
+                release: 'Merlot Sounds',
+                label: 'LuckyMe',
+                link: 'https://luckyme.bandcamp.com/album/merlot-sounds-1',
+                time: '22:16',
+                imageLink: 'https://f4.bcbits.com/img/a0709625521_10.jpg',
+            },
+            {
+                artist: 'Flight Facilities',
+                title: 'Heavy (feat. Your Smith)',
+                release: 'Heavy (feat. Your Smith) [Remixes]',
+                label: 'Future Classic',
+                link: 'https://flightfacilities.bandcamp.com/album/heavy-feat-your-smith-remixes',
+                time: '24:43',
+                imageLink: 'https://f4.bcbits.com/img/a2338578115_10.jpg',
+            },
+            {
+                artist: 'Panama',
+                title: 'Always (Classixxx Remix)',
+                release: 'Always EP',
+                label: 'Future Classic',
+                link: 'https://soundcloud.com/futureclassic/panama-always-classixxx-1',
+                time: '27:55',
+                imageLink: 'https://i1.sndcdn.com/artworks-000060403793-gp07ml-t500x500.jpg',
+            },
+            {
+                artist: 'Royal',
+                title: 'Mixed Feelings (Feat. desktop.)',
+                release: 'Cycles EP',
+                label: 'Royal',
+                link: 'https://soundcloud.com/imadroyal/mixed-feelings-feat-desktop',
+                time: '32:36',
+                imageLink: 'https://i1.sndcdn.com/artworks-000104654875-4qn6pw-t500x500.jpg',
+            },
+            {
+                artist: 'Canblaster',
+                title: 'E Yr Bed',
+                release: 'Continue?',
+                label: 'Pelican Fly',
+                link: 'https://www.beatport.com/release/continue/1627935',
+                time: '35:22',
+                imageLink: 'https://geo-media.beatport.com/image_size/1400x1400/2fc2507c-567c-46b6-af8b-a06670c680ec.jpg',
+            },
+            {
+                artist: 'DIVERSA',
+                title: 'xxxXXX',
+                release: 'underscore',
+                label: 'DIVERSA',
+                link: 'https://diversa.bandcamp.com/album/underscore',
+                time: '38:43',
+                imageLink: 'https://f4.bcbits.com/img/a2137380567_16.jpg',
+            },
+            {
+                artist: 'Miniature Tigers',
+                title: 'Sex On The Regular (Chrome Sparks Remix)',
+                release: 'Sex On The Regular (Chrome Sparks Remix)',
+                label: 'Chrome Sparks',
+                link: 'https://soundcloud.com/chrome-sparks/sex-on-the-regular-chrome',
+                time: '41:16',
+                imageLink: 'https://i1.sndcdn.com/artworks-000022202531-2577us-t500x500.jpg',
+            },
+        ]
     }
 ]
