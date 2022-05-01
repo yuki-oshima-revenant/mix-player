@@ -291,7 +291,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
                 <div className="h-[480px] bg-gradient-to-t from-black absolute w-full z-[-1] backdrop-blur-2xl" />
                 <div className="px-4 lg:px-8 py-3 lg:py-4">
                     <div className="w-auto">
-                        <h1 className="font-bold text-4xl lg:text-8xl tracking-tighter">
+                        <h1 className="font-bold text-3xl lg:text-8xl tracking-tighter">
                             {data?.title}
                         </h1>
                         <div className="text-base lg:text-lg flex">

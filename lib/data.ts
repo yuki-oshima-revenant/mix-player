@@ -339,5 +339,165 @@ export const data: Mix[] = [
                 imageLink: 'https://i1.sndcdn.com/artworks-000022202531-2577us-t500x500.jpg',
             },
         ]
+    },
+    {
+        title: '2022.04.29 #BirthOfLoser',
+        time: '58:26',
+        genres: [
+            {
+                name: 'Techno',
+                color: '#4f46e5'
+            },
+            {
+                name: 'Electronic',
+                color: '#059669'
+            }
+        ], 
+        tracks:[
+            {
+                artist: 'Beatrice Dillon and Call Super',
+                title: 'Fluo',
+                release: 'Inkjet / Fluo',
+                label: 'Hessle Audio',
+                link: 'https://music.hessleaudio.com/album/inkjet-fluo',
+                time: '00:00',
+                imageLink: 'https://f4.bcbits.com/img/a2605140912_10.jpg',
+            },
+            {
+                artist: 'Modeselektor feat. Sound Pellegrino Thermal Team',
+                title: 'Negativity (Bambounou Remix)',
+                release: 'Negativity - Bambounou Remix',
+                label: 'Modeselektor',
+                link: 'https://modeselektor.bandcamp.com/album/negativity-bambounou-remix',
+                time: '06:49',
+                imageLink: 'https://f4.bcbits.com/img/a3420263827_10.jpg',
+            },
+            {
+                artist: 'Two Shell',
+                title: 'Run',
+                release: 'Access E.P.',
+                label: 'Livity Sound',
+                link: 'https://twoshell.bandcamp.com/album/access-e-p',
+                time: '10:49',
+                imageLink: 'https://f4.bcbits.com/img/a3691286614_10.jpg',
+            },
+            {
+                artist: 'L-Vis 1990',
+                title: 'Girl Clap',
+                release: 'Club Constructions Volume 1',
+                label: 'Night Slugs',
+                link: 'https://l-vis1990.bandcamp.com/album/club-constructions-vol-1',
+                time: '15:04',
+                imageLink: 'https://f4.bcbits.com/img/a0877739923_10.jpg',
+            },
+            {
+                artist: 'Jordan Nocturne',
+                title: 'Hands Up',
+                release: 'Hands Up EP',
+                label: 'SYSTEM RECORDS',
+                link: 'https://jordannocturne.bandcamp.com/album/hands-up-ep',
+                time: '18:34',
+                imageLink: 'https://f4.bcbits.com/img/a0228242431_10.jpg'
+            },
+            {
+                artist: 'TSVI & Dj JM',
+                title: 'Xus Lord',
+                release: 'Rambo EP',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/tsvi-rambo-ep',
+                time: '20:20',
+                imageLink: 'https://f4.bcbits.com/img/a3744251791_10.jpg'
+            },
+            {
+                artist: 'HxdB',
+                title: 'Skool Dayz - Krusha Remix',
+                release: 'Skool Dayz',
+                label: 'B.YRSLF Division',
+                link: 'https://www.beatport.com/release/skool-dayz/1306383',
+                time: '24:33',
+                imageLink: 'https://geo-media.beatport.com/image_size/500x500/7452bead-a8aa-4d3b-b3ff-a3ac6d5b3229.jpg'
+            },
+            {
+                artist: 'Liar',
+                title: 'Club Medz',
+                release: 'Scorpio',
+                label: 'Infinite Machine',
+                link: 'https://infinitemachine.bandcamp.com/album/im025-liar-scorpio',
+                time: '27:45',
+                imageLink: 'https://f4.bcbits.com/img/a2475887735_10.jpg'
+            },
+            {
+                artist: 'Simo Cell',
+                title: 'Stop The Killing',
+                release: 'Pour Le Club! EP',
+                label: 'Livity Sound',
+                link: 'https://simocell.bandcamp.com/album/pour-le-club-ep',
+                time: '30:40',
+                imageLink: 'https://f4.bcbits.com/img/a2004701746_10.jpg'
+            },
+            {
+                artist: 'Tarquin, TSVI & Luru feat. Jammz',
+                title: 'Come to the Dance',
+                release: 'NH V/A VOL.2',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/nh-v-a-vol-2',
+                time: '34:18',
+                imageLink: 'https://f4.bcbits.com/img/a2540631593_10.jpg'
+            },
+            {
+                artist: 'DJ Plead',
+                title: 'Ess',
+                release: 'Going For It EP',
+                label: 'Livity Sound',
+                link: 'https://djplead.bandcamp.com/album/going-for-it-ep',
+                time: '36:27',
+                imageLink: 'https://f4.bcbits.com/img/a3869549687_10.jpg'
+            },
+            {
+                artist: 'Szare',
+                title: 'Cut With Glass',
+                release: 'POLITY001',
+                label: 'Polity Records',
+                link: 'https://szare.bandcamp.com/album/polity001',
+                time: '39:47',
+                imageLink: 'https://f4.bcbits.com/img/a1028617786_10.jpg'
+            },
+            {
+                artist: 'Overmono',
+                title: 'Diamond Cut',
+                release: 'Diamond Cut / Bby',
+                label: 'XL Recordings',
+                link: 'https://overmono.bandcamp.com/album/diamond-cut-bby',
+                time: '44:04',
+                imageLink: 'https://f4.bcbits.com/img/a3948554062_10.jpg'
+            },
+            {
+                artist: 'Tiga & Hudson Mohawke',
+                title: 'Love Minus Zero',
+                release: 'Love Minus Zero',
+                label: 'Love Minus Communications',
+                link: 'https://tigamusic.bandcamp.com/track/love-minus-zero',
+                time: '48:20',
+                imageLink: 'https://f4.bcbits.com/img/a1850591503_10.jpg'
+            },
+            {
+                artist: 'Camden Arc',
+                title: 'Is It Good To You (Vindata Remix)',
+                release: 'Is It Good To You (Vindata Remix)',
+                label: 'Vindata',
+                link: 'https://soundcloud.com/vindata/camden-arc-is-it-good-to-you-vindata-remix',
+                time: '52:39',
+                imageLink: 'https://i1.sndcdn.com/artworks-000092566037-mxrgu7-t500x500.jpg'
+            },
+            {
+                artist: 'Foster The People',
+                title: 'Best Friend (Wave Racer Remix)',
+                release: 'Best Friend (Wave Racer Remix)',
+                label: 'Wave Racer',
+                link: 'https://soundcloud.com/wave-racer/foster-the-people-best-friend-wave-racer-remix',
+                time: '55:32',
+                imageLink: 'https://i1.sndcdn.com/artworks-000081427919-dzro8w-t500x500.jpg'
+            },
+        ]
     }
 ]
