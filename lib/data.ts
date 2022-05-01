@@ -405,7 +405,7 @@ export const data: Mix[] = [
                 release: 'Rambo EP',
                 label: 'Nervous Horizon',
                 link: 'https://nervoushorizon.bandcamp.com/album/tsvi-rambo-ep',
-                time: '20:20',
+                time: '21:20',
                 imageLink: 'https://f4.bcbits.com/img/a3744251791_10.jpg'
             },
             {
