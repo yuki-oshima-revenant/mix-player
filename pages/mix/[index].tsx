@@ -11,6 +11,7 @@ import { convertSecondsToTime, convertTimeToSeconds } from '../../lib/utils/conv
 import { TrackWithIndex, MixWithIndex, } from '../../lib/types/track';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from "next/head";
+import { useIsMobile } from '../../lib/utils/useIsMobile';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = data.map((row, index) => ({
@@ -75,16 +76,7 @@ const Index = ({ pageIndex, data, audioLength }: InferGetStaticPropsType<typeof 
     const seekbarRef = useRef<HTMLDivElement>(null);
     const seekbarPointerHolded = useRef(false);
     const [seekbarPointerVisible, setSeekbarPointerVisible] = useState(false);
-    const [isMobile, setIsMobile] = useState(true);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 1024);
-        }
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const isMobile = useIsMobile();
 
     const { currentTrack, nextTrack } = useMemo(() => {
         if (!data) return {};
