@@ -3,12 +3,12 @@ import Head from "next/head";
 import { useRouter } from 'next/router';
 import { data } from '../lib/data'
 import { ImTwitter, ImGithub } from 'react-icons/im';
-import { useIsMobile } from '../lib/utils/useIsMobile';
+import { useWindowSize } from '../lib/utils/useIsMobile';
 import { useRef } from 'react';
 
 const Home: NextPage = () => {
     const router = useRouter();
-    const isMobile = useIsMobile();
+    const { width, isMobile } = useWindowSize();
     const ref = useRef<HTMLDivElement>(null);
     return (
         <div ref={ref}>
@@ -26,13 +26,13 @@ const Home: NextPage = () => {
                         <ImTwitter
                             className="h-auto my-auto cursor-pointer"
                             onClick={() => {
-                                window.open('https://twitter.com/Re_venant', '_blank')
+                                window.open('https://twitter.com/Re_venant', '_blank');
                             }}
                         />
                         <ImGithub
                             className="h-auto my-auto ml-2 cursor-pointer"
                             onClick={() => {
-                                window.open('https://github.com/yuki-oshima-revenant/mix-player', '_blank')
+                                window.open('https://github.com/yuki-oshima-revenant/mix-player', '_blank');
                             }}
                         />
                     </div>
@@ -56,11 +56,11 @@ const Home: NextPage = () => {
                                     {/* <div className="text-lg mt-2">{mix.time}</div> */}
                                 </div>
                                 <div className='absolute overflow-hidden'>
-                                    <div className='flex h-[160px] lg:h-[320px]' style={{ width: ref.current?.getBoundingClientRect().width }}>
+                                    <div className='flex h-[160px] lg:h-[320px]' style={{ width }}>
                                         {mix.tracks.map((track, trackIndex) => {
                                             return (
                                                 <div key={track.title} className="h-[160px] lg:h-[320px] w-[160px] lg:w-[320px] absolute" style={{ left: trackIndex * (isMobile ? 80 : 160) }}>
-                                                    <img src={track.imageLink} className="" />
+                                                    <img src={track.imageLink} className="h-[160px] lg:h-[320px] w-[160px] lg:w-[320px]" />
                                                 </div>
                                             )
                                         })}
