@@ -18,7 +18,6 @@ export const data: Mix[] = [
                 color: '#059669'
             }
         ],
-
         tracks: [
             {
                 artist: 'Anunaku',
@@ -352,8 +351,8 @@ export const data: Mix[] = [
                 name: 'Electronic',
                 color: '#059669'
             }
-        ], 
-        tracks:[
+        ],
+        tracks: [
             {
                 artist: 'Beatrice Dillon and Call Super',
                 title: 'Fluo',
@@ -497,6 +496,211 @@ export const data: Mix[] = [
                 link: 'https://soundcloud.com/wave-racer/foster-the-people-best-friend-wave-racer-remix',
                 time: '55:32',
                 imageLink: 'https://i1.sndcdn.com/artworks-000081427919-dzro8w-t500x500.jpg'
+            },
+        ]
+    },
+    {
+        title: 'eleventh-floor 0.0.2',
+        time: '56:34',
+        genres: [
+            {
+                name: 'Techno',
+                color: '#4f46e5'
+            },
+            {
+                name: 'Electronic',
+                color: '#059669'
+            }
+        ],
+        tracks: [
+            {
+                artist: 'SIM',
+                title: 'Hollow',
+                release: 'NH V/A VOL. 4',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/nh-v-a-vol-4',
+                time: '00:00',
+                imageLink: 'https://f4.bcbits.com/img/a2426033956_10.jpg'
+            },
+            {
+                artist: 'TSVI',
+                title: 'Modulatrum',
+                release: 'Sogno EP',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/tsvi-sogno-ep',
+                time: '02:27',
+                imageLink: 'https://f4.bcbits.com/img/a2989799555_10.jpg'
+            },
+            {
+                artist: 'Toma Kami',
+                title: 'Solo Use',
+                release: 'Speed Oddity',
+                label: 'Man Band',
+                link: 'https://tomakami.bandcamp.com/album/speed-oddity',
+                time: '05:24',
+                imageLink: 'https://f4.bcbits.com/img/a1557932886_10.jpg'
+            },
+            {
+                artist: 'Air Max \'97',
+                title: 'Coriolis',
+                release: 'Coriolis',
+                label: 'DECISIONS',
+                link: 'https://airmax97.bandcamp.com/album/coriolis',
+                time: '08:16',
+                imageLink: 'https://f4.bcbits.com/img/a2546482134_10.jpg'
+            },
+            {
+                artist: 'Ido Plumes',
+                title: 'Noise Water',
+                release: 'Away From The Reign EP',
+                label: 'Livity Sound',
+                link: 'https://idoplumes.bandcamp.com/album/away-from-the-reign-ep',
+                time: '11:44',
+                imageLink: 'https://f4.bcbits.com/img/a3585663601_10.jpg'
+            },
+            {
+                artist: 'Forest Drive West',
+                title: 'Creation Dub',
+                release: 'Parallel Space EP',
+                label: 'Echocord',
+                link: 'https://echocord.bandcamp.com/album/parallel-space-ep',
+                time: '15:31',
+                imageLink: 'https://f4.bcbits.com/img/a0496209171_10.jpg'
+            },
+            {
+                artist: 'Luis & Lis Dalton',
+                title: 'timmy chalamet',
+                release: '057 (Schwyn)',
+                label: 'AD 93',
+                link: 'https://djpythonnyc.bandcamp.com/album/057-schwyn',
+                time: '18:35',
+                imageLink: 'https://f4.bcbits.com/img/a1656797036_10.jpg'
+            },
+            {
+                artist: 'DJ Python',
+                title: 'Club Sentimiental Vol Three',
+                release: 'Club Sentimientos Vol 2',
+                label: 'Incienso',
+                link: 'https://djpythonnyc.bandcamp.com/album/club-sentimientos-vol-2',
+                time: '21:35',
+                imageLink: 'https://f4.bcbits.com/img/a1257468602_10.jpg'
+            },
+            {
+                artist: 'Tristan Arp',
+                title: 'Gypsum',
+                release: 'Sculpturegardening',
+                label: 'Wisdom Teeth',
+                link: 'https://tristanarp.bandcamp.com/album/sculpturegardening',
+                time: '24:12',
+                imageLink: 'https://f4.bcbits.com/img/a2801663014_10.jpg'
+            },
+            {
+                artist: 'Parris & Minor Science',
+                title: 'Terrapin',
+                release: 'Terrapin',
+                label: 'Wisdom Teeth',
+                link: 'https://parris.bandcamp.com/album/terrapin',
+                time: '26:27',
+                imageLink: 'https://f4.bcbits.com/img/a3701683332_10.jpg'
+            },
+            {
+                artist: 'Ehua',
+                title: 'Diatom',
+                release: 'Aquamarine EP',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/ehua-aquamarine-ep',
+                time: '29:41',
+                imageLink: 'https://f4.bcbits.com/img/a0788049492_10.jpg'
+            },
+            {
+                artist: 'Monotronique',
+                title: 'Dance Hall For Dancehall',
+                release: 'MAAAAAAAD',
+                label: 'Hyperboloid Music',
+                link: 'https://monotronique.bandcamp.com/album/maaaaaaad',
+                time: '31:56',
+                imageLink: 'https://f4.bcbits.com/img/a2508703995_10.jpg'
+            },
+            {
+                artist: 'Shed',
+                title: 'Dark Planet (Modeselektor Remix)',
+                release: 'Dark Planet / Dark Planet (Modeselektor Remix)',
+                label: '50 Weapons',
+                link: 'https://shed030.bandcamp.com/album/dark-planet-dark-planet-modeselektor-remix',
+                time: '34:48',
+                imageLink: 'https://f4.bcbits.com/img/a1144550457_10.jpg'
+            },
+            {
+                artist: 'Baauer',
+                title: 'Pinku',
+                release: 'Aa',
+                label: 'LuckyMe',
+                link: 'https://baauer.bandcamp.com/album/aa',
+                time: '37:21',
+                imageLink: 'https://f4.bcbits.com/img/a2576978141_10.jpg'
+            },
+            {
+                artist: 'Zillas on Acid',
+                title: 'A Wonderful Time in a Terrible Club (Fantastic Twins Remix)',
+                release: 'A Wonderful Time in a Terrible Club',
+                label: 'Inside Out Records',
+                link: 'https://zillasonacid.bandcamp.com/album/a-wonderful-time-in-a-terrible-club',
+                time: '39:07',
+                imageLink: 'https://f4.bcbits.com/img/a0388902527_10.jpg'
+            },
+            {
+                artist: 'Happa',
+                title: 'Glacial Breaks',
+                release: 'NH V/A VOL. 4',
+                label: 'Nervous Horizon',
+                link: 'https://nervoushorizon.bandcamp.com/album/nh-v-a-vol-4',
+                time: '42:12',
+                imageLink: 'https://f4.bcbits.com/img/a2426033956_10.jpg'
+            },
+            {
+                artist: 'Beek & Zora Jones',
+                title: 'Miss Kitty',
+                release: 'Visceral Minds 2',
+                label: 'Fractal Fantasy',
+                link: 'https://fractalfantasy.bandcamp.com/album/visceral-minds-2',
+                time: '44:41',
+                imageLink: 'https://f4.bcbits.com/img/a2751416073_10.jpg'
+            },
+            {
+                artist: 'Lurka',
+                title: 'Stay Let\'s Together',
+                release: 'Stay Let\'s Together',
+                label: 'Wisdom Teeth',
+                link: 'https://lurka.bandcamp.com/album/lurka-stay-lets-together',
+                time: '46:32',
+                imageLink: 'https://f4.bcbits.com/img/a2286019139_10.jpg'
+            },
+            {
+                artist: 'J-E-T-S',
+                title: 'REAL TRUTH (Feat. Tkay Maidza)',
+                release: 'ZOOSPA',
+                label: 'Innovative Leisure',
+                link: 'https://j-e-t-s.bandcamp.com/album/zoospa',
+                time: '47:47',
+                imageLink: 'https://f4.bcbits.com/img/a2464979571_10.jpg'
+            },
+            {
+                artist: 'B.Visible',
+                title: 'Planes',
+                release: 'In Between Places',
+                label: 'Matches Music',
+                link: 'https://bvisible.bandcamp.com/album/in-between-places',
+                time: '50:35',
+                imageLink: 'https://f4.bcbits.com/img/a1706505043_10.jpg'
+            },
+            {
+                artist: 'Cid Rim',
+                title: 'Feedback Loop',
+                release: 'LuckyMe Advent Calendar 21',
+                label: 'LuckyMe',
+                link: 'https://luckyme.bandcamp.com/album/luckyme-advent-calendar-21',
+                time: '53:40',
+                imageLink: 'https://f4.bcbits.com/img/a2607936032_10.jpg'
             },
         ]
     }
