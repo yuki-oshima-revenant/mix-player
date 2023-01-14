@@ -703,5 +703,165 @@ export const data: Mix[] = [
                 imageLink: 'https://f4.bcbits.com/img/a2607936032_10.jpg'
             },
         ]
+    },
+    {
+        title: '2023.01.13 at MSL',
+        time: '75:56',
+        genres: [
+            {
+                name: 'Techno',
+                color: '#4f46e5'
+            },
+            {
+                name: 'Electronic',
+                color: '#059669'
+            }
+        ],
+        tracks: [
+            {
+                artist: 'K-LONE',
+                title: 'Yelli',
+                release: 'Cape Cira LP',
+                label: 'Wisdom Teeth',
+                link: 'https://k-lone.bandcamp.com/album/k-lone-cape-cira-lp',
+                time: '00:00',
+                imageLink: 'https://f4.bcbits.com/img/a0341866469_10.jpg'
+            },
+            {
+                artist: 'Schuttle',
+                title: 'Speke',
+                release: 'BH001',
+                label: 'Bakk Heia Records',
+                link: 'https://bakkheiarecords.bandcamp.com/album/schuttle-bh001',
+                time: '06:26',
+                imageLink: 'https://f4.bcbits.com/img/a2083344041_10.jpg'
+            },
+            {
+                artist: 'Jorg Kuning',
+                title: 'Transplant',
+                release: 'BH005',
+                label: 'Bakk Heia Records',
+                link: 'https://bakkheiarecords.bandcamp.com/album/jorg-kuning-bh005',
+                time: '10:50',
+                imageLink: 'https://f4.bcbits.com/img/a0522217240_10.jpg'
+            },
+            {
+                artist: 'Bambounou',
+                title: 'Tour',
+                release: 'Whities 021',
+                label: 'AD 93',
+                link: 'https://bambounouofficial.bandcamp.com/album/whities-021',
+                time: '17:25',
+                imageLink: 'https://f4.bcbits.com/img/a2588518280_10.jpg'
+            },
+            {
+                artist: 'Azu Tiwaline',
+                title: 'Medium Time',
+                release: 'Vesta',
+                label: 'I.O.T Records',
+                link: 'https://azutiwaline.bandcamp.com/album/vesta',
+                time: '22:13',
+                imageLink: 'https://f4.bcbits.com/img/a0184928741_10.jpg'
+            },
+            {
+                artist: 'Forest Drive West',
+                title: 'Lost Signal',
+                release: 'Molten Mirrors - A Decade Of Livity Sound',
+                label: 'Livity Sound',
+                link: 'https://livitysound.bandcamp.com/album/molten-mirrors-a-decade-of-livity-sound',
+                time: '28:26',
+                imageLink: 'https://f4.bcbits.com/img/a1980384465_10.jpg'
+            },
+            {
+                artist: 'Tristan Arp',
+                title: 'Seed',
+                release: 'Oddkin',
+                label: 'Human Pitch',
+                link: 'https://tristanarp.bandcamp.com/album/oddkin',
+                time: '31:49',
+                imageLink: 'https://f4.bcbits.com/img/a2772138157_10.jpg'
+            },
+            {
+                artist: 'Leif',
+                title: 'Shoulders Back',
+                release: 'July V / Shoulders Back',
+                label: 'Leif',
+                link: 'https://leifsounds.bandcamp.com/album/july-v-shoulders-back',
+                time: '35:25',
+                imageLink: 'https://f4.bcbits.com/img/a3980469716_10.jpg'
+            },
+            {
+                artist: 'Tristan Arp',
+                title: 'Foraging Music',
+                release: 'Sculpturegardening',
+                label: 'Wisdom Teeth',
+                link: 'https://tristanarp.bandcamp.com/album/sculpturegardening',
+                time: '40:58',
+                imageLink: 'https://f4.bcbits.com/img/a2801663014_10.jpg'
+            },
+            {
+                artist: 'K-LONE',
+                title: 'Sailing Stones',
+                release: 'The Falls EP',
+                label: 'Wisdom Teeth',
+                link: 'https://k-lone.bandcamp.com/album/k-lone-the-falls-ep',
+                time: '42:26',
+                imageLink: 'https://f4.bcbits.com/img/a1409516600_10.jpg'
+            },
+            {
+                artist: 'upsammy',
+                title: 'Warm Puddles',
+                release: 'Blue 03',
+                label: 'AD 93',
+                link: 'https://ad93.bandcamp.com/album/blue-03',
+                time: '45:55',
+                imageLink: 'https://f4.bcbits.com/img/a3331630384_10.jpg'
+            },
+            {
+                artist: 'Nathan Micay',
+                title: 'First Casualty',
+                release: 'Whities 017',
+                label: 'AD 93',
+                link: 'https://ad93.bandcamp.com/album/whities-017',
+                time: '51:51',
+                imageLink: 'https://f4.bcbits.com/img/a0281715608_10.jpg'
+            },
+            {
+                artist: 'Jorg Kuning',
+                title: 'Chosta-Del-Sol',
+                release: 'Chosta-Del-Sol',
+                label: 'Wisdom Teeth',
+                link: 'https://wisdomteethuk.bandcamp.com/album/chosta-del-sol',
+                time: '57:05',
+                imageLink: 'https://f4.bcbits.com/img/a3541155160_10.jpg'
+            },
+            {
+                artist: 'A+A',
+                title: 'Felice',
+                release: '060',
+                label: 'AD 93',
+                link: 'https://ad93.bandcamp.com/album/060',
+                time: '62:55',
+                imageLink: 'https://f4.bcbits.com/img/a3818780817_10.jpg'
+            },
+            {
+                artist: 'Ross From Friends',
+                title: 'Revellers',
+                release: 'Tread',
+                label: 'Brainfeeder',
+                link: 'https://rossfromfriends.bandcamp.com/album/tread',
+                time: '66:30',
+                imageLink: 'https://f4.bcbits.com/img/a0751377172_10.jpg'
+            },
+            {
+                artist: 'Lindsay Lowend',
+                title: 'Still Crazy',
+                release: 'Chiptunes 2022',
+                label: 'Lindsay Lowend',
+                link: 'https://lindsaylowend.bandcamp.com/album/chiptunes-2022',
+                time: '72:05',
+                imageLink: 'https://f4.bcbits.com/img/a0092456164_10.jpg'
+            },
+        ]
     }
 ]
